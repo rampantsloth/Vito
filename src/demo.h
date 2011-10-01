@@ -4,6 +4,8 @@
 #include "HoG.h"
 #include "FeaturePlugins/FeatureAlgorithmPlugin.h"
 #include <dlfcn.h>
+#include "XMLParameterDataSource.h"
+
 
 namespace vito{
 

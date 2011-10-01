@@ -1,0 +1,16 @@
+<parameters>
+  <Example>
+    <third type="bool"> 0 </third>
+    <fourth type="uint"> 55 </fourth>
+    <first type="int"> -55 </first> 
+    <second type="double"> 55.55 </second>
+    <fifth> 65.65 </fifth>
+  </Example>
+  <HoG>
+    <blur type="bool"> 0 </blur>
+    <blur_size type="uint"> 6 </blur_size>
+    <xhistograms type="uint"> 10 </xhistograms>
+    <yhistograms type="uint"> 10 </yhistograms>
+    <orientations type="double"> 10.1010 </orientations>
+  </HoG>
+</parameters>

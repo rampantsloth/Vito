@@ -26,9 +26,13 @@ IPATH += -I./src/Classifiers
 IPATH += -I./libs/libsvm-3.0/
 IPATH += -I/opt/local/include 
 IPATH += -I/opt/local/include/opencv
-
+IPATH += -I./libs/
 LIBPATH  +=  -L/opt/local/lib 
 LIBPATH  +=  -L/usr/local/lib 
+LIBPATH += -L./libs/
+
+LIBOBJECTS = libs/tinyxml/tinystr.o libs/tinyxml/tinyxml.o libs/tinyxml/tinyxmlerror.o	libs/tinyxml/tinyxmlparser.o	
+
 
 #LIBS = -lcxcore -lcvaux -lcv
 LIBS = -lopencv_ml -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lopencv_legacy
@@ -36,17 +40,33 @@ LIBS = -lopencv_ml -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_hi
 
 CPPC = g++
 LINKER = $(CPPC)
-CPPFLAGS = -Wall -DUNIX
+CPPFLAGS = -g -Wall -DUNIX
 
-all: $(APPLICATION) 
+all: libs $(APPLICATION) 
 
+# Locally Compiled Libraries:
+
+libs: svm mpeg7lib tinyxml
+
+tinyxml: 
+	cd libs/tinyxml && $(MAKE)
+
+mpeg7lib: 
+	cd libs/mpeg7 && $(MAKE)
+
+SVM_Objects = libs/libsvm-3.0/svm.o
+
+svm: $(SVM_Objects)
+
+$(SVM_Objects):
+	$(MAKE) -C libs/libsvm-3.0
 
 name_sources:
 	@echo "sources are: $(SOURCES)"
 	@echo "objects are: $(OBJECTS)"
 
 $(APPLICATION): $(OBJECTS) $(PLUGIN_OBJECTS)
-	$(LINKER) $(LIBPATH) $(LIBS) -o $(APPLICATION) $(LINKOBJECTS)
+	$(LINKER) $(LIBPATH) $(LIBS) -o $(APPLICATION) $(LINKOBJECTS) $(LIBOBJECTS)
 
 $(OBJDIR)/%.dylib: $(SRCDIR)/%.cpp
 	$(CPPC) -fPIC $(Global) -c $(CPPFLAGS) -o  $(OBJDIR)/$*.o $< $(IPATH)
