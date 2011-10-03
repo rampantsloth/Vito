@@ -11,6 +11,6 @@
     <blur_size type="uint"> 6 </blur_size>
     <xhistograms type="uint"> 10 </xhistograms>
     <yhistograms type="uint"> 10 </yhistograms>
-    <orientations type="double"> 10.1010 </orientations>
+    <orientations type="uint"> 10  </orientations>
   </HoG>
 </parameters>

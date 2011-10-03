@@ -7,8 +7,9 @@ using std::endl;
 namespace vito{
 
 void demo(){
-  SP<ParameterDataSource> datasource = new XMLParameterDataSource("parameters.xml");
-  cout << "pars: " << datasource->get("HoG", "orientations", (double) 5);
+  XMLParameterDataSource xmldsource("parameters.xml");
+  FeatureFactory ff;
+  ff.get("HoG", &xmldsource);
 }
 
 } // vito

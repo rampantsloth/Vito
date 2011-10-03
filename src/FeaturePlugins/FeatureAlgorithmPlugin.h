@@ -1,21 +1,15 @@
-#ifndef PLUGIN_H
-#define PLUGIN_H
+#ifndef FEATUREALGORITHMPLUGIN_H
+#define FEATUREALGORITHMPLUGIN_H
 
 /* A plugin is always paramterized, even when they do not need any
    paramters to ensure they are loaded uniformly */
-#include <map>
-#include "ParameterDataSource.h"
-#include "VisualFeatureAlgorithm.h"
-
-// Feature Make is a function type that generates a
-// VisualFeatureAlgorithm Smart Pointer given a pointer to a ParameterDataSource.
-typedef SP<vito::features::VisualFeatureAlgorithm > 
-        FeatureMaker(vito::ParameterDataSource*);
+#include "FeaturePluginManager.h"
 
 // In the program at flat namespace level, a map is kept of every
 // FeatureMakerFunction to which each FeatureMaker function should be
 // added
-extern std::map<std::string, FeatureMaker*, std::less<std::string> > feature_factory;
+
+extern vito::features::FeaturePluginManager::factory feature_factory;
 
 /* ----------------- Tutorial -------------------------
 To create A Visual Feature Algorithm Plugin:

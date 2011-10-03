@@ -1,19 +1,21 @@
 #ifndef PLUGINLOADER_H
 #define PLUGINLOADER_H
 
-#include "FeaturePlugins/FeatureAlgorithmPlugin.h"
+#include <vector>
+#include "sharedpointer.h"
+
 
 namespace vito{
 
-template<class Type> class PluginInterface{
+/* open and closes dylibs that are assumed to contain plugins */
+class PluginLoader{
+private:
+  std::vector< void* > handles;
+  void loadPlugin(std::string dylib_location);
 public:
-  void loadPlugins(std::string location){
-  }   
- 
-};
-
-class PluginFetcher{
-  PluginInterface<FeatureMaker> features;
+  typedef std::vector<std::string> filelist;
+  PluginLoader(filelist list);
+  ~PluginLoader();
 };
 
 } // vito
