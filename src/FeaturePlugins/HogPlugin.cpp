@@ -8,7 +8,7 @@ using vito::features::HoGParameters;
 using vito::ParameterDataSource;
 
 extern "C"{
-  SP<VisualFeatureAlgorithm> makeHoG(vito::ParameterDataSource *source){
+  VisualFeatureAlgorithm::ptr makeHoG(vito::ParameterDataSource::const_ptr source){
     #define set(dummy) parameters.dummy = source->get("HoG", #dummy, parameters.dummy);
     HoGParameters parameters;
     set(blur);
@@ -16,7 +16,7 @@ extern "C"{
     set(xhistograms);
     set(yhistograms);
     set(orientations);
-    SP<VisualFeatureAlgorithm> algorithm(new HoG(parameters));
+    VisualFeatureAlgorithm::ptr algorithm(new HoG(parameters));
     return algorithm;
   };
 

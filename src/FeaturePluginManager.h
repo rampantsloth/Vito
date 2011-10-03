@@ -8,13 +8,14 @@
 namespace vito{
 namespace features{
 
-class FeaturePluginManager : public PluginType<VisualFeatureAlgorithm>,
-			     public PluginLoader{
+class FeaturePluginManager : public PluginType<VisualFeatureAlgorithm> {
 private:
-  static const factory & getFactory_();
+  PluginLoader loader;
+  static factory& getFactory_();
 public:
-  const factory& getFactory();
-  FeaturePluginManager(PluginLoader::filelist list) : PluginLoader(list){}
+  const factory &getFactory() const;
+  FeaturePluginManager(PluginLoader::filelist list) : loader(list){}
+  ~FeaturePluginManager();
 };
 
 } // features

@@ -1,25 +1,42 @@
 APPLICATION = vito
 
+#-------------------------------------------------------------------------------
+# locations etc
+#-------------------------------------------------------------------------------
+
 SRCDIR = src
 OBJDIR = obj
 
+DEFAULT_PARAMETERS_FILE = parameters.xml
+
+FEATUREPLUGINSRCDIR = $(SRCDIR)/FeaturePlugins
+CLASSIFIERPLUGINSRCDIR = $(SRCDIR)/ClassifierPlugins
+
+FEATUREPLUGINOBJDIR = $(OBJDIR)/FeaturePlugins
+CLASSIFIERPLUGINOBJDIR = $(OBJDIR)/ClassifierPlugins
+
+#-------------------------------------------------------------------------------
 # Source location definitions: TODO (just list them all)
+#-------------------------------------------------------------------------------
+
 SOURCES  = $(wildcard $(SRCDIR)/*.cpp)
 LINKOBJECTS =  $(subst $(SRCDIR), $(OBJDIR), $(SOURCES:.cpp=.o))
 
 SOURCES += $(wildcard $(SRCDIR)/Features/*.cpp)
 SOURCES += $(wildcard $(SRCDIR)/Classifiers/*.cpp)
 
-FEATURE_PLUGIN_SOURCES    = $(wildcard $(SRCDIR)/FeaturePlugins/*.cpp)
-CLASSIFIER_PLUGIN_SOURCES = $(wildcard $(SRCDIR)/ClassifierPlugins/*.cpp)
+FEATURE_PLUGIN_SOURCES    = $(wildcard $(FEATUREPLUGINSRCDIR)/*.cpp)
+CLASSIFIER_PLUGIN_SOURCES = $(wildcard $(CLASSIFIERPLUGINSRCDIR)/*.cpp)
 
 PLUGIN_SOURCES = $(FEATURE_PLUGIN_SOURCES) $(CLASSIFIER_PLUGIN_SOURCES)
 PLUGIN_OBJECTS = $(subst $(SRCDIR), $(OBJDIR), $(PLUGIN_SOURCES:.cpp=.dylib))
 
-#objects
 OBJECTS = $(subst $(SRCDIR), $(OBJDIR), $(SOURCES:.cpp=.o))
 
+#-------------------------------------------------------------------------------
 # include path:
+#-------------------------------------------------------------------------------
+
 IPATH =  -I./src/ 
 IPATH += -I./src/Features
 IPATH += -I./src/Classifiers
@@ -31,16 +48,32 @@ LIBPATH  +=  -L/opt/local/lib
 LIBPATH  +=  -L/usr/local/lib 
 LIBPATH += -L./libs/
 
-LIBOBJECTS = libs/tinyxml/tinystr.o libs/tinyxml/tinyxml.o libs/tinyxml/tinyxmlerror.o	libs/tinyxml/tinyxmlparser.o	
+LIBOBJECTS = 	libs/tinyxml/tinystr.o libs/tinyxml/tinyxml.o \
+		libs/tinyxml/tinyxmlerror.o libs/tinyxml/tinyxmlparser.o	
 
+#-------------------------------------------------------------------------------
+# Libraries:
+#-------------------------------------------------------------------------------
 
-#LIBS = -lcxcore -lcvaux -lcv
-LIBS = -lopencv_ml -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lopencv_legacy
+LIBS = 	-lopencv_ml -lopencv_core -lopencv_imgproc -lopencv_objdetect \
+	-lopencv_highgui -lopencv_legacy
 
+#-------------------------------------------------------------------------------
+# Macros:
+#-------------------------------------------------------------------------------
+
+DEFAULTS_PARAMETERS_MACRO = -D 'DEFAULTPARAMETERS="$(DEFAULT_PARAMETERS_FILE)"'
+FEATURE_PLUGIN_DIR_MACRO = -D 'FEATUREPLUGINDIR="$(FEATUREPLUGINOBJDIR)"'
+
+MACROS = $(DEFAULTS_PARAMETERS_MACRO) $(FEATURE_PLUGIN_DIR_MACRO)
+
+#-------------------------------------------------------------------------------
+# Compile commands and Make logic
+#-------------------------------------------------------------------------------
 
 CPPC = g++
 LINKER = $(CPPC)
-CPPFLAGS = -g -Wall -DUNIX
+CPPFLAGS = -g -Wall -DUNIX $(MACROS)
 
 all: libs $(APPLICATION) 
 

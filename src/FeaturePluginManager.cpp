@@ -6,12 +6,16 @@ factory factory_;
 
 namespace vito{
 namespace features{
- const factory &FeaturePluginManager::getFactory_(){
+ factory &FeaturePluginManager::getFactory_(){
   return factory_;
 }
-const factory &FeaturePluginManager::getFactory(){
+const factory &FeaturePluginManager::getFactory() const{
   return FeaturePluginManager::getFactory();
 }
+FeaturePluginManager::~FeaturePluginManager(){
+  FeaturePluginManager::getFactory_().clear();
+}
+
 
 } // features
 } // vito

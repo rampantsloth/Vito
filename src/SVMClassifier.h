@@ -19,7 +19,7 @@ private:
   svm_problem *  compileProblem(const ExampleCollection &examples);
 public:
   SVMClassifier(SVMClassifierParameters pars, 
-      SP<features::IVisualFeatureExtractor> feat);
+		boost::shared_ptr<features::IVisualFeatureExtractor> feat);
   virtual Label classify(const Descriptor &descriptor);
   virtual void  train(ExampleCollection dp);
 };

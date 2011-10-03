@@ -1,5 +1,7 @@
 #include "PluginLoader.h"
+
 #include <dlfcn.h>
+#include <iostream>
 
 //vito::FeaturePluginLoader::factory feature_factory;
 

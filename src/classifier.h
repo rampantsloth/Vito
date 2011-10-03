@@ -15,11 +15,11 @@ namespace classification{
 /* Abstract class that  contains a feature to use */
 class Classifier{
 private:
-  SP<features::IVisualFeatureExtractor> feature;
+  boost::shared_ptr<features::IVisualFeatureExtractor> feature;
   std::string           name;
 
 public:
-  Classifier(SP<features::IVisualFeatureExtractor> feature, std::string name);
+  Classifier(boost::shared_ptr<features::IVisualFeatureExtractor> feature, std::string name);
 
   // pure methods
   virtual std::string      get_name();

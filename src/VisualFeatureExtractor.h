@@ -4,16 +4,17 @@
 #include "IVisualFeatureExtractor.h"
 #include "VisualFeatureAlgorithm.h"
 #include "sharedPointer.h"
-
+#include "boost/shared_ptr.hpp"
 namespace vito{
 namespace features{
 
 /* resources that should be available to a feature fetcher */
 class VisualFeatureExtractor : public IVisualFeatureExtractor {
 private:
-  SP<VisualFeatureAlgorithm> algorithm;
+  VisualFeatureAlgorithm::ptr algorithm;
 public:
-  VisualFeatureExtractor(SP<VisualFeatureAlgorithm> alg) : algorithm(alg){}
+  VisualFeatureExtractor(VisualFeatureAlgorithm::ptr alg) : 
+    algorithm(alg){}
   // features name;
   virtual std::string getName(){return algorithm->getName();}
   virtual Descriptor  extract(DataPoint dp, RgbImage *visrep = 0){

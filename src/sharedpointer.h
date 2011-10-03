@@ -1,6 +1,14 @@
 #ifndef SHAREDPOINTER_H
 #define SHAREDPOINTER_H
+#endif
+//#include "boost/shared_ptr.hpp"
 
+//template <class C> struct SP : public boost::shared_ptr<C>{
+//};
+
+//#endif
+
+/*
 #include <iostream>
 
 class ReferenceCounter{
@@ -66,3 +74,4 @@ public:
 
 
 #endif
+*/

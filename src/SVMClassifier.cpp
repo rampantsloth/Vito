@@ -4,8 +4,10 @@ namespace vito{
 namespace classification{
 
 
+
+
 SVMClassifier::SVMClassifier(SVMClassifierParameters pars, 
-	 SP<features::IVisualFeatureExtractor> feat) : 
+			     boost::shared_ptr<features::IVisualFeatureExtractor> feat) : 
   Classifier(feat, "SVMClassifier"), 
   parameters(pars){}
 

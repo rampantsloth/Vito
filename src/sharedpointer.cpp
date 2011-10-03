@@ -1,5 +1,5 @@
 #include "sharedpointer.h"
-
+/*
 ReferenceCounter::ReferenceCounter() : kReferences(0){
 }
 
@@ -14,3 +14,4 @@ std::cout << " now have " << kReferences << " refs" << std::endl;
   return kReferences;
 }
 
+*/

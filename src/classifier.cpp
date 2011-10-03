@@ -15,7 +15,7 @@ void Classifier::train(DataPointCollection dps){
   //train(examples);
 }
 
-Classifier::Classifier(SP<features::IVisualFeatureExtractor > f,
+Classifier::Classifier(boost::shared_ptr<features::IVisualFeatureExtractor > f,
 			 std::string n) :
   feature(f), name(n){}
 
