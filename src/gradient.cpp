@@ -16,8 +16,8 @@ ImageGradient::ImageGradient(BwImage *imagep,
   for(size_t x = 1; x < image.getWidth() - 1; ++x){
     for(size_t y = 1; y < image.getHeight() - 1; ++y){
       // calculate the orthogonal directions
-      double dx = image[x + 1][y] - image[x - 1][y];
-      double dy = image[x][y + 1] - image[x][y - 1];
+      double dx = image[y + 1][x] - image[y - 1][x];
+      double dy = image[y][x + 1] - image[y][x - 1];
       dx /= 255.0; dy /= 255.0;
       // calculate magnitude of gradient
       at(x - 1, y - 1).magnitude = sqrt(dx * dx + dy * dy);

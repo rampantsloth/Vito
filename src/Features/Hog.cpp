@@ -34,8 +34,6 @@ Descriptor HoG::calculateHistogram(const HoGWindow &window,
   for(size_t x = window.topleft.x; x < window.bottomright.x; x++)
     for(size_t y = window.topleft.y; y < window.bottomright.y; y++)
       bin(gradient(x,y), &histogram);
-  //for(Descriptor::iterator i = histogram.begin(); i != histogram.end(); ++i)
-    //    *i = 20000;
   drawHistogramRepresentation(window, histogram, visrep);
   return histogram;
 }
@@ -97,8 +95,9 @@ vector<HoGWindow> HoG::divideIntoWindows(const ImageGradient &gradient,
       window.bottomright.x = (x + 1) * window_width;
       window.bottomright.y = (y + 1) * window_height;
       windows.push_back(window);
+      cout << "window at: topleft: " << window.topleft.x << "*" << window.topleft.y
+	   <<" and botrights: " << window.bottomright.x << "*" << window.bottomright.y << endl;
       if(visrep != 0){
-	cout << "doing the drawing " << endl;
 	visrep->drawBox(Point(window.topleft.x, window.topleft.y),
 		       Point(window.bottomright.x, window.bottomright.y),
 		       Color(255,0,0), 1);
@@ -124,8 +123,8 @@ void HoG::drawHistogramRepresentation(const HoGWindow &w,
     double bin_angle = (bin_size * (i - histogram.begin() + 1)) -
       (0.5 * bin_size);
     cout << bin_angle << " is the bin angle " << endl;
-    Point target(center.x + *i * magnification * sin(bin_angle),
-		 center.y + *i * magnification * cos(bin_angle));
+    Point target(center.x + *i * magnification * cos(bin_angle),
+		 center.y + *i * magnification * sin(bin_angle));
     visrep->drawLine(center, target, Color(0,255,0), 1);
   }
 }

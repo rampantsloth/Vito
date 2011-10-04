@@ -19,6 +19,7 @@ PluginLoader::PluginLoader(filelist list){
 }
 
 void PluginLoader::loadPlugin(string dylib_location){
+  dylib_location = "./" + dylib_location;
   void *handle = dlopen(dylib_location.c_str(), RTLD_NOW);
   if(handle)
     handles.push_back(handle);

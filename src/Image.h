@@ -35,7 +35,7 @@ public:
 // courtesy of : 
 // http://www.cs.iit.edu/~agam/cs512/lect-notes/opencv-intro/opencv-intro.html
 
-  template<class T> class Image : public OpenCVImage{
+template<class T> class Image : public OpenCVImage{
 public:
   Image(IplImage *img = 0) : OpenCVImage(img){}
   ~Image(){cvReleaseImage(&imgp);}

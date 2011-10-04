@@ -5,7 +5,7 @@
 #include "FeaturePlugins/FeatureAlgorithmPlugin.h"
 #include <dlfcn.h>
 #include "XMLParameterDataSource.h"
-
+#include "BoostFileSystem.h"
 
 namespace vito{
 

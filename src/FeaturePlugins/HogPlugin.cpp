@@ -9,6 +9,7 @@ using vito::ParameterDataSource;
 
 extern "C"{
   VisualFeatureAlgorithm::ptr makeHoG(vito::ParameterDataSource::const_ptr source){
+    std::cout << "source: " << source << endl;
     #define set(dummy) parameters.dummy = source->get("HoG", #dummy, parameters.dummy);
     HoGParameters parameters;
     set(blur);

@@ -16,8 +16,7 @@ private:
 
 public:
   FeatureFactory(FileSystem::ptr fs,
-		 ParameterDataSource::ptr dsource = 
-		 XMLParameterDataSource::ptr(new XMLParameterDataSource("parameters.xml"))) : 
+		 ParameterDataSource::ptr dsource) : 
     filesystem(fs),
     default_dsource(dsource), 
     manager(filesystem->getFilesOfType(".dylib", FEATUREPLUGINDIR)){

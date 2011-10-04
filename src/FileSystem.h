@@ -13,6 +13,7 @@ public:
   typedef std::vector<std::string> file_list;
   virtual file_list getFilesOfType(std::string type, 
 				   std::string directory) const = 0;
+  virtual ~FileSystem(){}
 };
 
 }

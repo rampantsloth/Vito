@@ -9,8 +9,8 @@
   <HoG>
     <blur type="bool"> 0 </blur>
     <blur_size type="uint"> 6 </blur_size>
-    <xhistograms type="uint"> 10 </xhistograms>
-    <yhistograms type="uint"> 10 </yhistograms>
+    <xhistograms type="uint"> 4 </xhistograms>
+    <yhistograms type="uint"> 4 </yhistograms>
     <orientations type="uint"> 10  </orientations>
   </HoG>
 </parameters>

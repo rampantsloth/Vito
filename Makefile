@@ -22,7 +22,8 @@ CLASSIFIERPLUGINOBJDIR = $(OBJDIR)/ClassifierPlugins
 SOURCES  = $(wildcard $(SRCDIR)/*.cpp)
 LINKOBJECTS =  $(subst $(SRCDIR), $(OBJDIR), $(SOURCES:.cpp=.o))
 
-SOURCES += $(wildcard $(SRCDIR)/Features/*.cpp)
+FEATURESOURCES += $(wildcard $(SRCDIR)/Features/*.cpp)
+SOURCES += $(FEATURESOURCES)
 SOURCES += $(wildcard $(SRCDIR)/Classifiers/*.cpp)
 
 FEATURE_PLUGIN_SOURCES    = $(wildcard $(FEATUREPLUGINSRCDIR)/*.cpp)
@@ -55,8 +56,11 @@ LIBOBJECTS = 	libs/tinyxml/tinystr.o libs/tinyxml/tinyxml.o \
 # Libraries:
 #-------------------------------------------------------------------------------
 
-LIBS = 	-lopencv_ml -lopencv_core -lopencv_imgproc -lopencv_objdetect \
-	-lopencv_highgui -lopencv_legacy
+LIBS = 	\
+	-lopencv_ml -lopencv_core -lopencv_imgproc \
+	-lopencv_objdetect -lopencv_highgui -lopencv_legacy\
+	\
+	-lboost_filesystem -lboost_system # boost
 
 #-------------------------------------------------------------------------------
 # Macros:
@@ -101,7 +105,7 @@ name_sources:
 $(APPLICATION): $(OBJECTS) $(PLUGIN_OBJECTS)
 	$(LINKER) $(LIBPATH) $(LIBS) -o $(APPLICATION) $(LINKOBJECTS) $(LIBOBJECTS)
 
-$(OBJDIR)/%.dylib: $(SRCDIR)/%.cpp
+$(OBJDIR)/%.dylib: $(SRCDIR)/%.cpp $(FEATURESOURCES)
 	$(CPPC) -fPIC $(Global) -c $(CPPFLAGS) -o  $(OBJDIR)/$*.o $< $(IPATH)
 	$(CPPC) -fPIC -undefined suppress -flat_namespace -dynamiclib -o $@ $(OBJDIR)/$*.o
 
