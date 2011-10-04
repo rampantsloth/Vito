@@ -125,7 +125,7 @@ void HoG::drawHistogramRepresentation(const HoGWindow &w,
     cout << bin_angle << " is the bin angle " << endl;
     Point target(center.x + *i * magnification * cos(bin_angle),
 		 center.y + *i * magnification * sin(bin_angle));
-    visrep->drawLine(center, target, Color(0,255,0), 1);
+    visrep->drawLine(center, target, Color(0,255,0), 1); 
   }
 }
 
