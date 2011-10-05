@@ -3,13 +3,13 @@
 
 /* A plugin is always paramterized, even when they do not need any
    paramters to ensure they are loaded uniformly */
-#include "FeaturePluginManager.h"
+#include "FeatureFactory.h"
 
 // In the program at flat namespace level, a map is kept of every
 // FeatureMakerFunction to which each FeatureMaker function should be
 // added
 
-extern vito::features::FeaturePluginManager::factory feature_factory;
+extern vito::features::FeatureFactory::factory feature_factory;
 
 /* ----------------- Tutorial -------------------------
 To create A Visual Feature Algorithm Plugin:

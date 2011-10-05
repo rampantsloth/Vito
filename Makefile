@@ -47,10 +47,12 @@ IPATH += -I/opt/local/include/opencv
 IPATH += -I./libs/
 LIBPATH  +=  -L/opt/local/lib 
 LIBPATH  +=  -L/usr/local/lib 
-LIBPATH += -L./libs/
+LIBPATH   += -L./libs/
 
 LIBOBJECTS = 	libs/tinyxml/tinystr.o libs/tinyxml/tinyxml.o \
-		libs/tinyxml/tinyxmlerror.o libs/tinyxml/tinyxmlparser.o	
+		libs/tinyxml/tinyxmlerror.o libs/tinyxml/tinyxmlparser.o \
+		\
+		libs/libsvm-3.0/svm.o
 
 #-------------------------------------------------------------------------------
 # Libraries:

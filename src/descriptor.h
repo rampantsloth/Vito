@@ -39,7 +39,8 @@ class Descriptor : public std::vector<float>{
 
 };
 
-/* Descriptor with a label: an example for a classification algorithm */
+// Collection structure for both
+
 class Example : public Descriptor{
 private:
   int label;
@@ -52,9 +53,6 @@ public:
   void set_label(const int i);
   int  get_label() const;
 };
-
-
-// Collection structure for both
 
 class ExampleCollection : public std::vector<Example> {
 public:

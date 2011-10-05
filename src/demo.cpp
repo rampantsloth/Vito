@@ -10,11 +10,13 @@ using std::endl;
 namespace vito{
 class Dummy{};
 
+
+
 void demo(){
   ParameterDataSource::ptr xml( new XMLParameterDataSource ("parameters.xml"));
   vito::FileSystem::ptr fs( new vito::BoostFileSystem());
-  vito::features::FeatureFactory ff(fs, xml);
-  vito::features::VisualFeatureAlgorithm::ptr feat =  ff.getFeatureAlgorithm("HoG");
+  vito::features::FeatureFactory ff(fs, xml, FEATUREPLUGINDIR);
+  vito::features::VisualFeatureAlgorithm::ptr feat =  ff.getAlgorithm("HoG");
   cout <<  feat->getName() << endl;
   std::string loc = "radialgrad.jpg";
   RgbImage image(loc);

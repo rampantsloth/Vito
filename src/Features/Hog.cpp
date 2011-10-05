@@ -5,7 +5,7 @@
 namespace vito{
 namespace features{
 
-HoG::HoG(HoGParameters p) : parameters(p){}
+HoG::HoG(Parameters p) : parameters(p){}
 
 Descriptor HoG::extract(ImageAccess image,
 			RgbImage *visrep){

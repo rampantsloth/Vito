@@ -4,14 +4,12 @@
 
 using vito::features::VisualFeatureAlgorithm;
 using vito::features::HoG;
-using vito::features::HoGParameters;
 using vito::ParameterDataSource;
 
 extern "C"{
   VisualFeatureAlgorithm::ptr makeHoG(vito::ParameterDataSource::const_ptr source){
-    std::cout << "source: " << source << endl;
     #define set(dummy) parameters.dummy = source->get("HoG", #dummy, parameters.dummy);
-    HoGParameters parameters;
+    HoG::Parameters parameters;
     set(blur);
     set(blur_size);
     set(xhistograms);

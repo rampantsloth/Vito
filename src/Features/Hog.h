@@ -8,18 +8,20 @@ namespace vito{
 namespace features{
 
 struct HoGWindow {Point topleft, bottomright;};
-struct HoGParameters {
-  bool    blur; // whether to blur or not
-  size_t  blur_size; // uneven number to indicate the size of the blur kernel 
-  size_t  xhistograms; 
-  size_t  yhistograms; // number of gridpoints for histograms on the x and y 
-  size_t  orientations; // number of orientations to use creating the histogram
-};
+
 
 class HoG : public VisualFeatureAlgorithm{
-  const HoGParameters parameters;
 public:
-  HoG(HoGParameters p);
+  struct Parameters {
+    bool    blur; // whether to blur or not
+    size_t  blur_size; // uneven number to indicate the size of the blur kernel 
+    size_t  xhistograms; 
+    size_t  yhistograms; // number of gridpoints for histograms on the x and y 
+    size_t  orientations; // number of orientations to use creating the histogram
+  };
+  const Parameters parameters;
+public:
+  HoG(Parameters p);
   virtual std::string getName(){ return "HoG";}
   virtual Descriptor  extract(ImageAccess image,
 			      RgbImage *visrep = 0);

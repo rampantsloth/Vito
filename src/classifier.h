@@ -20,6 +20,7 @@ private:
 
 public:
   Classifier(boost::shared_ptr<features::IVisualFeatureExtractor> feature, std::string name);
+  virtual ~Classifier();
 
   // pure methods
   virtual std::string      get_name();

@@ -9,6 +9,8 @@ using std::string;
 namespace vito{
 namespace classification{
 
+Classifier::~Classifier(){}
+
 void Classifier::train(DataPointCollection dps){
   //DescriptorCollection descriptors = feature->extract(dps);
   //ExampleCollection examples (descriptors, dps.getLabels());

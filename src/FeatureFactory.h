@@ -1,31 +1,21 @@
 #ifndef FEATUREFACTORY_H
 #define FEATUREFACTORY_H
 
-#include "FileSystem.h"
-#include "FeaturePluginManager.h"
-#include "XMLParameterDataSource.h"
+#include "PluginFactory.h"
+#include "VisualFeatureAlgorithm.h"
 
 namespace vito{
 namespace features{
 
-class FeatureFactory{
-private:
-  FileSystem::ptr filesystem;
-  ParameterDataSource::ptr default_dsource;
-  FeaturePluginManager manager;
 
+class FeatureFactory : public PluginFactory<VisualFeatureAlgorithm>{
+protected:
+  const factory &getFactory() const;
 public:
   FeatureFactory(FileSystem::ptr fs,
-		 ParameterDataSource::ptr dsource) : 
-    filesystem(fs),
-    default_dsource(dsource), 
-    manager(filesystem->getFilesOfType(".dylib", FEATUREPLUGINDIR)){
-    //
-  }
-
-  VisualFeatureAlgorithm::ptr getFeatureAlgorithm(std::string featurename, 
-					 ParameterDataSource::const_ptr source =
-					 ParameterDataSource::const_ptr());
+		 ParameterDataSource::ptr dsource,
+		 std::string plugin_directory) : 
+    PluginFactory<VisualFeatureAlgorithm>(fs, dsource,  plugin_directory){}
 };
 
 }
