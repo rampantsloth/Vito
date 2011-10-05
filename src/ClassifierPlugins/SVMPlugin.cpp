@@ -9,7 +9,7 @@ using vito::ParameterDataSource;
 extern "C"{
 
   ClassifierAlgorithm::ptr makeSVM(vito::ParameterDataSource::const_ptr source){
-#define set(dummy) parameters.dummy = source->get("HoG", #dummy, parameters.dummy);
+#define set(dummy) parameters.dummy = source->get("SVM", #dummy, parameters.dummy);
     CSVC_RBF_Classifier::Parameters parameters;
     set(shrinking);
     set(probability);
@@ -17,13 +17,14 @@ extern "C"{
     set(epsilon);
     set(C);
     set(gamma);
-    
+    return ClassifierAlgorithm::ptr(new CSVC_RBF_Classifier(parameters));  
   };
- class Initializer{
+ class SVMInitializer{
   public:
-    Initializer(){
+    SVMInitializer(){
+      std::cout << "doing the svm " << std::endl;
       classifier_factory["SVM"] = makeSVM;
-  }
+    }
   };
-  Initializer p;
+  SVMInitializer p;
 }

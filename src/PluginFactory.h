@@ -10,6 +10,7 @@ namespace vito{
 
 template <class Type> class PluginFactory {
 public: 
+  typedef boost::shared_ptr<PluginFactory<Type> > ptr;
   typedef boost::shared_ptr<Type> maker(vito::ParameterDataSource::const_ptr);
   typedef std::map<std::string, maker*, std::less<std::string> > factory;
 protected:

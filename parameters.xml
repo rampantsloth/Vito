@@ -1,11 +1,4 @@
 <parameters>
-  <Example>
-    <third type="bool"> 0 </third>
-    <fourth type="uint"> 55 </fourth>
-    <first type="int"> -55 </first> 
-    <second type="double"> 55.55 </second>
-    <fifth> 65.65 </fifth>
-  </Example>
   <HoG>
     <blur type="bool"> 0 </blur>
     <blur_size type="uint"> 6 </blur_size>
@@ -13,5 +6,12 @@
     <yhistograms type="uint"> 4 </yhistograms>
     <orientations type="uint"> 10  </orientations>
   </HoG>
+  <SVM>
+    <shrinking type="int"> 0 </shrinking>
+    <probability type="int"> 0 </probability>
+    <cache_size type="int"> 1025 </cache_size>
+    <epsilon type="double"> 0.64 </epsilon>
+    <C type="double"> 10.0 </C>
+    <gamma type="double">0.2 </gamma>
+  </SVM>
 </parameters>
-Cover Stance Movement Focus

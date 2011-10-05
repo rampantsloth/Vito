@@ -10,6 +10,11 @@ namespace classification{
 class ClassifierFactory : public PluginFactory<ClassifierAlgorithm>{
 protected:
   const factory &getFactory() const;
+public:
+  ClassifierFactory(FileSystem::ptr fs,
+		    ParameterDataSource::ptr dsource,
+		    std::string plugin_directory) : 
+    PluginFactory<ClassifierAlgorithm>(fs, dsource, plugin_directory){}
 };
 
 } // classification

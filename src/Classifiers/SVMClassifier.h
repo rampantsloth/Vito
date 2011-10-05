@@ -29,7 +29,7 @@ private:
 /*As of yet unweighed */
 class CSVC_RBF_Classifier : public SVMClassifier{
 public:
-  virtual std::string getName(){return "CSVC_RBF";}
+  virtual std::string getName(){return "SVM";}
   typedef boost::shared_ptr<CSVC_RBF_Classifier> ptr;
   struct Parameters{
     int    shrinking, probability;

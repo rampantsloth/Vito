@@ -10,7 +10,13 @@ namespace classification{
 SVMClassifier::~SVMClassifier(){}
 
 SVMClassifier::SVMClassifier(Parameters pars) : 
-  parameters(pars){}
+  parameters(pars){
+#define print(dummy) cout << #dummy " = " << parameters.dummy << endl;
+  print(svm_type);
+  print(kernel_type);
+  print(gamma);
+  print(C);
+} 
 
 void SVMClassifier::svm_destroy_problem(svm_problem **problem_){
   svm_problem * problem = *problem_;
