@@ -2,10 +2,11 @@
 
 using std::string;
 
-#define check(type, thing) \
-  if(thing.find(parent)->second.count(str))				\
+#define check(type, thing)						\
+  if(thing.count(parent))						\
+    if(thing.find(parent)->second.count(str))				\
       return (type) thing.find(parent)->second.find(str)->second;
-#define order(type, first, second, third, fourth) \
+#define order(type, first, second, third, fourth)	\
     check(type, first); \
     check(type, second); \
     check(type, third); \

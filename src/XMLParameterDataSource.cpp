@@ -7,14 +7,16 @@ using std::string;
 using std::cout;
 using std::endl;
 
-namespace vito{
+#include "Exceptions.h"
 
+namespace vito{
+ 
 XMLParameterDataSource::XMLParameterDataSource(string location){
   // load the document
   TiXmlDocument document(location.c_str());
   if(!document.LoadFile()){
     cout << "could not find " << location << endl;
-    return;
+    throw exception::FileNotFound();
   }
   // find the parameters child
   TiXmlNode *parameterNode = 0;
@@ -48,10 +50,10 @@ XMLParameterDataSource::XMLParameterDataSource(string location){
 	    (boost::lexical_cast<bool>(cPar->ToElement()->GetText())));
       else if(cAttribute == "int")
 	add(pGroup->Value(), cPar->Value(),
-	    boost::lexical_cast<int>(cPar->ToElement()->GetText()));
+	    (int)boost::lexical_cast<double>(cPar->ToElement()->GetText()));
       else if(cAttribute == "uint")
 	add(pGroup->Value(), cPar->Value(),
-	    boost::lexical_cast<size_t>(cPar->ToElement()->GetText()));
+	    (size_t) boost::lexical_cast<double>(cPar->ToElement()->GetText()));
       else if(cAttribute == "double")
 	add(pGroup->Value(), cPar->Value(), 
 	    boost::lexical_cast<double>(cPar->ToElement()->GetText()));

@@ -8,6 +8,7 @@ using std::endl;
 //int ten = 0;
 
 #include "ClassifierFactory.h"
+#include "Exceptions.h"
 
 namespace vito{
 class Dummy{};

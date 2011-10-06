@@ -32,8 +32,8 @@ public:
   virtual std::string getName(){return "SVM";}
   typedef boost::shared_ptr<CSVC_RBF_Classifier> ptr;
   struct Parameters{
-    int    shrinking, probability;
-    double cache_size, epsilon, C, gamma;
+    int    shrinking, probability, cache_size;
+    double  epsilon, C, gamma;
     operator SVMClassifier::Parameters(){
       SVMClassifier::Parameters svm_p = {C_SVC, RBF, 0, // degree
 					 gamma, 0, //coef0 

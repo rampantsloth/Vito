@@ -7,6 +7,8 @@ APPLICATION = vito
 SRCDIR = src
 OBJDIR = obj
 
+TESTDIR = $(SRCDIR)/Test
+
 DEFAULT_PARAMETERS_FILE = parameters.xml
 
 FEATUREPLUGINSRCDIR = $(SRCDIR)/FeaturePlugins
@@ -18,6 +20,10 @@ CLASSIFIERPLUGINOBJDIR = $(OBJDIR)/ClassifierPlugins
 #-------------------------------------------------------------------------------
 # Source location definitions: TODO (just list them all)
 #-------------------------------------------------------------------------------
+
+TESTPROGRAM = testall
+TESTSOURCES = $(wildcard $(TESTDIR)/*.cpp)
+TESTOBJECTS = $(subst $(SRCDIR), $(OBJDIR), $(TESTSOURCES:.cpp=.o))
 
 SOURCES  = $(wildcard $(SRCDIR)/*.cpp)
 LINKOBJECTS =  $(subst $(SRCDIR), $(OBJDIR), $(SOURCES:.cpp=.o))
@@ -62,7 +68,8 @@ LIBS = 	\
 	-lopencv_ml -lopencv_core -lopencv_imgproc \
 	-lopencv_objdetect -lopencv_highgui -lopencv_legacy\
 	\
-	-lboost_filesystem -lboost_system # boost
+	-lboost_filesystem -lboost_system -lboost_unit_test_framework
+
 
 #-------------------------------------------------------------------------------
 # Macros:
@@ -110,11 +117,14 @@ name_sources:
 $(APPLICATION): $(OBJECTS) $(PLUGIN_OBJECTS)
 	$(LINKER) $(LIBPATH) $(LIBS) -o $(APPLICATION) $(LINKOBJECTS) $(LIBOBJECTS)
 
-$(OBJDIR)/%.dylib: $(SRCDIR)/%.cpp $(FEATURESOURCES)
+$(OBJDIR)/%.dylib: $(SRCDIR)/%.cpp $(FEATURESOURCES) $(CLASSIFIERSOURCES)
 	$(CPPC) -fPIC $(Global) -c $(CPPFLAGS) -o  $(OBJDIR)/$*.o $< $(IPATH)
 	$(CPPC) -fPIC -undefined suppress -flat_namespace -dynamiclib -o $@ $(OBJDIR)/$*.o
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h 
+	$(CPPC) -c $(CPPFLAGS)  -o $@ $< $(IPATH)
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CPPC) -c $(CPPFLAGS)  -o $@ $< $(IPATH)
 
 clean:
@@ -122,6 +132,13 @@ clean:
 
 clean_plugins:
 	rm $(PLUGIN_OBJECTS)
+
+test: testall
+	./testall --log_level=test_suite;
+
+$(TESTPROGRAM) : all $(TESTOBJECTS)
+	$(LINKER) $(LIBPATH) $(LIBS) -o $(TESTPROGRAM) $(TESTOBJECTS) \
+	$(filter-out %main.o, $(LINKOBJECTS)) $(LIBOBJECTS)
 
 plugins: clean_plugins all
 
