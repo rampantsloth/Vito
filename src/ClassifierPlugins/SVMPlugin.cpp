@@ -17,6 +17,7 @@ extern "C"{
     set(epsilon);
     set(C);
     set(gamma);
+    std::cout << "C: " << parameters.C << std::endl;
     return ClassifierAlgorithm::ptr(new CSVC_RBF_Classifier(parameters));  
   };
  class SVMInitializer{
