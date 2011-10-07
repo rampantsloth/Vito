@@ -10,12 +10,7 @@ namespace classification{
 SVMClassifier::~SVMClassifier(){}
 
 SVMClassifier::SVMClassifier(Parameters pars) : 
-  parameters(pars){
-#define print(dummy) cout << #dummy " = " << parameters.dummy << endl;
-  print(svm_type);
-  print(kernel_type);
-  print(gamma);
-  print(C);
+  parameters(pars), model(0), prblm(0){
 } 
 
 void SVMClassifier::svm_destroy_problem(svm_problem **problem_){
@@ -33,13 +28,11 @@ void SVMClassifier::svm_destroy_problem(svm_problem **problem_){
 
 void SVMClassifier::train(ExampleCollection examples){
   // destroy any existing models
-  if(!model){
-    svm_free_and_destroy_model(&model);
-    cout << "SVMFREE AND DESTROY IS WORKING PROPERLY IF 0 == " << model << endl;
+  if(model){
     model = 0; // hopefully already done in prefious function
   }
   // destroy any existing problems
-  if(!prblm)
+  if(prblm)
     svm_destroy_problem(&prblm);
   // train!
   prblm = compileProblem(examples);

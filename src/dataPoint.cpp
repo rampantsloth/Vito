@@ -13,6 +13,10 @@ DataPoint::DataPoint(size_t lab,
   cat_name(cat){
 }
 
+string DataPoint::get_identifier() const {
+  return "";
+}
+
 string DataPoint::get_image_url() const {
   return image_url;
 }
