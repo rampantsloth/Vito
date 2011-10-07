@@ -1,15 +1,16 @@
 #ifndef LRUCACHE_H
 #define LRUCACHE_H
 
+#include <map>
 #include <list>
 
 namespace vito{
 template<class Entry> class LRUCache{
-private:
+public:
   typedef std::pair<std::string, Entry> EntryPair;
   typedef std::list< EntryPair > CacheList;
-  typedef std::map< std::string, EntryPair* > CacheMap;
-
+  typedef std::map< std::string, Entry* > CacheMap;
+private:
   CacheList cache_list;
   CacheMap cache_map;
   size_t maxentries, kEntries;
@@ -22,15 +23,19 @@ public:
   void insert(std::string hash, Entry entry){
     cache_list.push_front(std::make_pair(hash, entry));
     kEntries++;
-    cache_map[hash] = entry;
+    cache_map[hash] = &cache_list.begin()->second;
     if(kEntries > maxentries){
-      cache_map.erase(cache_list.front.first);
+      cache_map.erase(cache_list.back().first);
       cache_list.pop_back();
       kEntries--;
     }
   }
-  CacheMap* find(std::string hash){
-    return cache_map.find(hash);
+  Entry find(std::string hash){
+    
+    if(cache_map.count(hash))
+      return *cache_map[hash];
+    else 
+      return Entry();
   }
 };
 

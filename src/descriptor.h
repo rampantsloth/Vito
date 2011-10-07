@@ -7,13 +7,17 @@
 #include <assert.h>
 #include <algorithm>
 #include <map>
-
+#include "boost/shared_ptr.hpp"
 
 namespace vito{
 
 
 /* Descriptor class used to stare image descriptors */
 class Descriptor : public std::vector<float>{
+public:
+  typedef boost::shared_ptr<Descriptor> ptr;
+  typedef boost::shared_ptr<const Descriptor> const_ptr;
+
  private:
   
   friend Descriptor& operator+(Descriptor& left, const Descriptor& right){

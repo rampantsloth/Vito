@@ -1,11 +1,23 @@
 #ifndef IVISUALFEATUREFETCHER_H
 #define IVISUALFEATUREFETCHER_H
 
+#include "boost/shared_ptr.hpp"
+#include "Descriptor.h"
+#include "DataPoint.h"
+#include "VisualFeatureAlgorithm.h"
+
+namespace vito{
+namespace features{
+
 class IVisualFeatureFetcher{
 public:
-  virtual const Descriptor *        extract(DataPoint dp, 
-					    RgbImage *visrep = 0) = 0;
-  virtual vector<const Descriptor*> extract(DataPointCollection dps) = 0;
+  typedef std::vector<Descriptor::const_ptr> DescriptorPtrSet;
+  typedef boost::shared_ptr<IVisualFeatureFetcher> ptr;
+  virtual Descriptor::const_ptr extract(const DataPoint &dp, 
+					RgbImage *visrep = 0) = 0;
+   DescriptorPtrSet             extract(const vector<DataPoint> &dps);
 };
 
+} // features
+}// vito
 #endif

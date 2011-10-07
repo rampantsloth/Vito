@@ -6,6 +6,8 @@
 #include "PluginLoader.h"
 #include <iostream>
 
+#include "Exceptions.h"
+
 namespace vito{
 
 template <class Type> class PluginFactory {
@@ -28,15 +30,15 @@ public:
   
   boost::shared_ptr<Type> getAlgorithm(std::string algorithm_name,
 		    ParameterDataSource::const_ptr dsource = 
-		    ParameterDataSource::const_ptr()){
+		    ParameterDataSource::const_ptr()) {
     if(dsource == NULL)
       dsource = default_dsource;
     const factory &cfactory = getFactory();
+    boost::shared_ptr<Type> alg();
     if(cfactory.count(algorithm_name))
       return (*cfactory.find(algorithm_name)).second(dsource);
     else
-      std::cout << "could not find " << algorithm_name
-		<< " in the plugins" << std::endl;
+      throw exception::CouldNotInstantiateProblem();
     return boost::shared_ptr<Type>();
   }
 };

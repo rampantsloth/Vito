@@ -15,29 +15,20 @@ XMLParameterDataSource::XMLParameterDataSource(string location){
   // load the document
   TiXmlDocument document(location.c_str());
   if(!document.LoadFile()){
-    cout << "could not find " << location << endl;
     throw exception::FileNotFound();
   }
   // find the parameters child
   TiXmlNode *parameterNode = 0;
   bool found = false;
-  cout << "about to iterate" << endl;
-  while(!found && (parameterNode = document.IterateChildren(parameterNode))){
-    if((string) parameterNode->Value() == "parameters"){
+  while(!found && (parameterNode = document.IterateChildren(parameterNode)))
+    if((string) parameterNode->Value() == "parameters")
       found = true;
-    }
-  }
-  cout << "done iterating " << endl;
   if(!found){
-    cout << "could not find parameters in " << location << endl;
-    return;
+    throw exception::XML();
   }
-  cout << parameterNode << endl;
-  cout << parameterNode->Value() << endl;
   // iterate each parameter group
   TiXmlNode *pGroup = 0;
   while((pGroup = parameterNode->IterateChildren(pGroup))){
-    cout << "doing parametergroup: " << pGroup->Value() << endl;
     // iterate each parameter
     TiXmlNode *cPar = 0; // current parameter
     while((cPar = pGroup->IterateChildren(cPar))){
