@@ -29,8 +29,9 @@ SOURCES  = $(wildcard $(SRCDIR)/*.cpp)
 LINKOBJECTS =  $(subst $(SRCDIR), $(OBJDIR), $(SOURCES:.cpp=.o))
 
 FEATURESOURCES += $(wildcard $(SRCDIR)/Features/*.cpp)
-SOURCES += $(FEATURESOURCES)
-SOURCES += $(wildcard $(SRCDIR)/Classifiers/*.cpp)
+#SOURCES += $(FEATURESOURCES)
+CLASSIFIERSOURCES += $(wildcard $(SRCDIR)/Classifiers/*.cpp)
+
 
 FEATURE_PLUGIN_SOURCES    = $(wildcard $(FEATUREPLUGINSRCDIR)/*.cpp)
 CLASSIFIER_PLUGIN_SOURCES = $(wildcard $(CLASSIFIERPLUGINSRCDIR)/*.cpp)
@@ -39,6 +40,11 @@ PLUGIN_SOURCES = $(FEATURE_PLUGIN_SOURCES) $(CLASSIFIER_PLUGIN_SOURCES)
 PLUGIN_OBJECTS = $(subst $(SRCDIR), $(OBJDIR), $(PLUGIN_SOURCES:.cpp=.dylib))
 
 OBJECTS = $(subst $(SRCDIR), $(OBJDIR), $(SOURCES:.cpp=.o))
+
+SOURCES += $(FEATUREOBJECTS) $(CLASSFIEROBJECTS)
+
+FEATUREOBJECTS = $(subst $(SRCDIR), $(OBJDIR), $(FEATURESOURCES:.cpp=.o))
+CLASSFIEROBJECTS = $(subst $(SRCDIR), $(OBJDIR), $(CLASSIFIERSOURCES:.cpp=.o))
 
 #-------------------------------------------------------------------------------
 # include path:
@@ -119,7 +125,8 @@ $(APPLICATION): $(OBJECTS) $(PLUGIN_OBJECTS)
 
 $(OBJDIR)/%.dylib: $(SRCDIR)/%.cpp $(FEATURESOURCES) $(CLASSIFIERSOURCES)
 	$(CPPC) -fPIC $(Global) -c $(CPPFLAGS) -o  $(OBJDIR)/$*.o $< $(IPATH)
-	$(CPPC) -fPIC -undefined suppress -flat_namespace -dynamiclib -o $@ $(OBJDIR)/$*.o
+	$(CPPC) -fPIC -undefined suppress -flat_namespace -dynamiclib \
+	-o $@ $(OBJDIR)/$*.o 
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h 
 	$(CPPC) -c $(CPPFLAGS)  -o $@ $< $(IPATH)
