@@ -1,5 +1,8 @@
-#include <boost/test/unit_test.hpp>
+#define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MODULE Classifiers
+#include <boost/test/unit_test.hpp>
+ 
+
 #include "ClassifierFactory.h"
 #include "BoostFileSystem.h"
 #include "XMLParameterDataSource.h"
@@ -14,7 +17,7 @@ BOOST_AUTO_TEST_CASE(TestSVM){
   ClassifierFactory factory(system, dsource, CLASSIFIERPLUGINDIR);
   ClassifierAlgorithm::ptr calg = factory.getAlgorithm("SVM");
   BOOST_CHECK(calg != 0);
-#define makevector(name, v1,v2,v3,v4)          \ 
+#define makevector(name, v1,v2,v3,v4)		\
   Descriptor name;				\
   name.push_back(v1);				\
   name.push_back(v2);				\
@@ -38,6 +41,8 @@ BOOST_AUTO_TEST_CASE(TestSVM){
   col.push_back(Example(b3,4));
   col.push_back(Example(b4,4));
   calg->train(col);
+  calg->train(col);
+  calg->train(col);
   BOOST_CHECK(calg->classify(a1) == 2);
   BOOST_CHECK(calg->classify(b1) == 4);
   BOOST_CHECK(calg->classify(a2) == 2);
@@ -46,5 +51,8 @@ BOOST_AUTO_TEST_CASE(TestSVM){
   BOOST_CHECK(calg->classify(b3) == 4);
   BOOST_CHECK(calg->classify(a4) == 2);
   BOOST_CHECK(calg->classify(b4) == 4);
-
+  makevector(a5, 0.123, 0.54, 0.23, 0.43);
+  makevector(b5, 0.5123, 0.654, 0.823, 0.943);
+  BOOST_CHECK(calg->classify(a5) == 2);
+  BOOST_CHECK(calg->classify(b5) == 4);
 }
