@@ -2,7 +2,6 @@
 #define BOOST_TEST_MODULE Classifiers
 #include <boost/test/unit_test.hpp>
  
-
 #include "ClassifierFactory.h"
 #include "BoostFileSystem.h"
 #include "XMLParameterDataSource.h"

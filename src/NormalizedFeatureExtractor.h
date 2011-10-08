@@ -15,6 +15,9 @@ public:
   virtual std::string getName(){
     return "normalized_" + extractor->getName();
   }
+  virtual std::string getSpecification() const{ 
+    return extractor->getSpecification() + "normalized";
+  }
 };
 
 } // features

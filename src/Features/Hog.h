@@ -23,6 +23,7 @@ public:
 public:
   HoG(Parameters p);
   virtual std::string getName(){ return "HoG";}
+  virtual std::string getSpecification() const;
   virtual Descriptor  extract(ImageAccess image,
 			      RgbImage *visrep = 0);
   vector<HoGWindow>   divideIntoWindows(const ImageGradient &gradient,

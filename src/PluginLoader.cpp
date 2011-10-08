@@ -14,8 +14,9 @@ namespace vito{
 
 PluginLoader::PluginLoader(filelist list){
   //load every plugin file
-  for(filelist::iterator i = list.begin(); i != list.end(); ++i)
+  for(filelist::iterator i = list.begin(); i != list.end(); ++i){
     loadPlugin(*i);
+  }
 }
 
 void PluginLoader::loadPlugin(string dylib_location){

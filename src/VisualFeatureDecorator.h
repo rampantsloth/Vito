@@ -13,8 +13,8 @@ public:
   VisualFeatureDecorator(IVisualFeatureExtractor::ptr ex) : extractor(ex){
 }
   virtual Descriptor extract(DataPoint dp, RgbImage *visrep = 0) = 0;
-  virtual std::string getName(){
-    return "stored_" + extractor->getName();
+  virtual std::string getSpecification() const{ 
+   return extractor->getSpecification();
   }
 };
 

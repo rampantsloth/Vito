@@ -14,7 +14,9 @@ namespace exception{
   }						\
   };						\
 
+
 exc(Vito, std::exception, "general exception");
+exc(ParametersEmpty, Vito, "no parameters found");
 exc(Cache, Vito, "Something to do with the cache");
 exc(CacheReadingError, Cache, "Could not read an element from the Cache");
 exc(Plugins, Vito, "Problem to do with plugins");

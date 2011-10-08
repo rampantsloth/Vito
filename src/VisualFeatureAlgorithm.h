@@ -4,6 +4,7 @@
 #include "imageAccess.h"
 #include "descriptor.h"
 #include "boost/shared_ptr.hpp"
+#include <sstream>
 
 namespace vito{
 namespace features{
@@ -16,6 +17,7 @@ public:
   virtual Descriptor        extract(ImageAccess image, 
 				    RgbImage *visrep = 0) = 0;
   virtual ~VisualFeatureAlgorithm(){}
+  virtual std::string getSpecification() const = 0;
 };
 
 

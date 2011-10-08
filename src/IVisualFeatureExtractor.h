@@ -15,6 +15,7 @@ public:
   virtual std::string getName() = 0;
   virtual Descriptor extract(DataPoint dp, RgbImage * visrep = 0) = 0;
   virtual ~IVisualFeatureExtractor(){}
+  virtual std::string getSpecification() const = 0;
 };
 
 }} // namespaces
