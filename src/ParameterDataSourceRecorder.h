@@ -15,6 +15,8 @@ public:
   ParameterDataSource::ptr getRecord(){
     return record;
   }
+  virtual std::string getSpecification();
+
   ParameterDataSourceRecorder(ParameterDataSource::ptr orig):
     true_source(orig), record(new ParameterDataSource()) {
   }

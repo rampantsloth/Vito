@@ -1,8 +1,13 @@
 #include "ParameterDataSourceRecorder.h"
 
 using std::string;
+#include <iostream>
 
 namespace vito{
+
+std::string ParameterDataSourceRecorder::getSpecification(){
+  return record->getSpecification();
+}
 
 size_t ParameterDataSourceRecorder::get(string str, string parent, size_t original) {
   size_t val = true_source->get(str, parent, original);

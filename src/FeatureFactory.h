@@ -16,17 +16,22 @@ protected:
   const factory &getFactory() const;
 public:
   FeatureFactory(FileSystem::ptr fs, 
-		 ParameterDataSource::ptr dsource,
 		 std::string plugin_directory) : 
-    PluginFactory<VisualFeatureAlgorithm>(fs, dsource,  plugin_directory){
+    PluginFactory<VisualFeatureAlgorithm>(fs,  plugin_directory){
+    std::string desc_ding;
+    desc_ding = desc_ding + "./" + DESCRIPTORLOCATION;
+    fs->createDir(desc_ding);
   }
 
-  Extractor::ptr getExtractor(std::string str, 
-			      bool stored = false,
-			      bool normalized = true) ;
+  Extractor::ptr getExtractor(std::string str,
+			      ParameterDataSource::ptr dsrc ,
+			      bool stored,
+			      bool normalized);
+  Extractor::ptr getExtractor(std::string str,
+			      ParameterDataSource::ptr dsrc);
   Fetcher::ptr   getFetcher(std::string str,
 			    bool stored = false,
-			    bool normalized = true) ;
+			    bool normalized = true);
 
 };
 

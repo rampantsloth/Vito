@@ -12,7 +12,7 @@ BOOST_AUTO_TEST_CASE(ParameterRecorderTest){
   original->add("aap", "muis", 11);
   original->add("aap", "hond", 99);
   ParameterDataSourceRecorder::ptr recorder(new ParameterDataSourceRecorder(original)); 
-  BOOST_CHECK(recorder->get("aap", "muis", 0) == 11);
+  BOOST_CHECK(recorder->get("aap", "muis", 0) == 11); 
   ParameterDataSource::ptr record = recorder->getRecord();
   BOOST_CHECK(record->get("aap", "muis", 3000) == 11);
   BOOST_CHECK(record->get("aap", "hond", 1313) == 1313);

@@ -13,26 +13,23 @@ namespace vito{
 template <class Type> class PluginFactory {
 public: 
   typedef boost::shared_ptr<PluginFactory<Type> > ptr;
-  typedef boost::shared_ptr<Type> maker(vito::ParameterDataSource::const_ptr);
+  typedef boost::shared_ptr<Type> maker(vito::ParameterDataSource::ptr);
   typedef std::map<std::string, maker*, std::less<std::string> > factory;
 protected:
   FileSystem::ptr filesystem;
-  ParameterDataSource::ptr default_dsource;
   PluginLoader loader;
   virtual const factory &getFactory() const = 0;
 public:
 
   PluginFactory(FileSystem::ptr fs,
-		ParameterDataSource::ptr dsource,
 		std::string plugin_directory) :
-    filesystem(fs), default_dsource(dsource), 
+    filesystem(fs), 
     loader(filesystem->getFilesOfType(".dylib", plugin_directory)){}
   
   boost::shared_ptr<Type> getAlgorithm(std::string algorithm_name,
-		    ParameterDataSource::const_ptr dsource = 
-		    ParameterDataSource::const_ptr()) {
+				       ParameterDataSource::ptr dsource){
     if(dsource == NULL)
-      dsource = default_dsource;
+      throw exception::ParametersEmpty();
     const factory &cfactory = getFactory();
     boost::shared_ptr<Type> alg();
     if(cfactory.count(algorithm_name))

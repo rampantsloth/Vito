@@ -20,6 +20,9 @@ public:
   virtual Descriptor  extract(DataPoint dp, RgbImage *visrep = 0){
     return algorithm->extract(ImageAccess(dp), visrep);
   }
+  virtual std::string getSpecification() const{ 
+    return algorithm->getSpecification();
+  }
 };
 
 } // features

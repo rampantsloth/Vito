@@ -8,7 +8,7 @@ using vito::ParameterDataSource;
 
 extern "C"{
 
-  ClassifierAlgorithm::ptr makeSVM(vito::ParameterDataSource::const_ptr source){
+  ClassifierAlgorithm::ptr makeSVM(vito::ParameterDataSource::ptr source){
 #define set(dummy, std) parameters.dummy = source->get("SVM", #dummy, std);
     CSVC_RBF_Classifier::Parameters parameters;
     set(shrinking, 0);

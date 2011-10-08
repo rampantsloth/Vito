@@ -2,10 +2,25 @@
 
 #define PI 3.14159265
 
+#include <sstream>
+
 namespace vito{
 namespace features{
 
 HoG::HoG(Parameters p) : parameters(p){}
+
+
+
+std::string HoG::getSpecification() const {
+  std::stringstream ss;
+  ss << "HoG_with_:"
+     << "blur=" << parameters.blur << "_"
+     <<  "blur_size=" << parameters.blur_size << "_"
+     <<  "xhistograms=" << parameters.xhistograms << "_"
+     <<  "yhistograms=" << parameters.yhistograms << "_"
+     <<  "orientations=" << parameters.orientations << "_";
+  return ss.str();
+}
 
 Descriptor HoG::extract(ImageAccess image,
 			RgbImage *visrep){
@@ -34,7 +49,8 @@ Descriptor HoG::calculateHistogram(const HoGWindow &window,
   for(size_t x = window.topleft.x; x < window.bottomright.x; x++)
     for(size_t y = window.topleft.y; y < window.bottomright.y; y++)
       bin(gradient(x,y), &histogram);
-  drawHistogramRepresentation(window, histogram, visrep);
+  if(visrep)
+    drawHistogramRepresentation(window, histogram, visrep);
   return histogram;
 }
 
@@ -47,8 +63,6 @@ void HoG::bin(PointGradient gradient, Descriptor *bin_values){
   
   angle_min = wrap(angle_min);
   angle_max = wrap(angle_max);
-
-  cout << "min: " << angle_min << " max: " << angle_max << endl;
 
   float bin_min;
   float bin_max = 0;
@@ -95,8 +109,6 @@ vector<HoGWindow> HoG::divideIntoWindows(const ImageGradient &gradient,
       window.bottomright.x = (x + 1) * window_width;
       window.bottomright.y = (y + 1) * window_height;
       windows.push_back(window);
-      cout << "window at: topleft: " << window.topleft.x << "*" << window.topleft.y
-	   <<" and botrights: " << window.bottomright.x << "*" << window.bottomright.y << endl;
       if(visrep != 0){
 	visrep->drawBox(Point(window.topleft.x, window.topleft.y),
 		       Point(window.bottomright.x, window.bottomright.y),
@@ -117,12 +129,10 @@ void HoG::drawHistogramRepresentation(const HoGWindow &w,
   size_t radius = min(w.bottomright.x - w.topleft.x, 
 		      w.bottomright.y - w.topleft.y) / 2;
   double magnification = 205 * radius / (double) window_pixels;
-  cout << "magnification" << magnification << endl;
   for(Descriptor::const_iterator i = histogram.begin();
       i != histogram.end(); ++i){
     double bin_angle = (bin_size * (i - histogram.begin() + 1)) -
       (0.5 * bin_size);
-    cout << bin_angle << " is the bin angle " << endl;
     Point target(center.x + *i * magnification * cos(bin_angle),
 		 center.y + *i * magnification * sin(bin_angle));
     visrep->drawLine(center, target, Color(0,255,0), 1); 
