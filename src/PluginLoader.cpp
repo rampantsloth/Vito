@@ -25,8 +25,10 @@ void PluginLoader::loadPlugin(string dylib_location){
   void *handle = dlopen(dylib_location.c_str(), RTLD_NOW);
   if(handle)
     handles.push_back(handle);
-  else
+  else{
     cout << "could not read " << dylib_location << " !!!" << endl;
+    cout << "error is: \n\t" <<  dlerror() << endl;
+  }
 }
 
 PluginLoader::~PluginLoader(){

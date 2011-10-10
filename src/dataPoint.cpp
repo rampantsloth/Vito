@@ -1,54 +1,28 @@
-#include "dataPoint.h"
+#include "DataPoint.h"
 
 using std::string;
-using std::cout;
-using std::endl;
 
 namespace vito{
 
-DataPoint::DataPoint(size_t lab, 
-		     string fname, string url,
-		     string cat):
-  label(lab),image_url(url),file_name(fname),
-  cat_name(cat){
-}
 
-string DataPoint::get_identifier() const {
-  return "";
-}
-
-string DataPoint::get_image_url() const {
-  return image_url;
-}
-
-size_t DataPoint::get_label() const {
-  return label;
-}
-
-string DataPoint::get_file_name() const {
-  return file_name;
-}
-
-string DataPoint::get_cat_name() const{
-  return cat_name;
-}
-DataPointCollection::DataPointCollection(std::vector<DataPoint> vec) : 
-  std::vector<DataPoint>(vec){}
-
-LabelCollection DataPointCollection::getLabels(){
-  LabelCollection labels;
-  for(DataPointCollection::iterator it = begin();
-      it != end();
-      ++it)
-    labels.push_back(it->get_label());
-  return labels;
-}
-
-void DataPointCollection::print(){
-  cout << "collection has: " << size() << " items: " << endl;
-  for(DataPointCollection::iterator it = begin(); it != end(); ++it)
-    cout << "  " << "type: " << it->get_label() << " "
-	 << it->get_file_name() << endl;
-}
+DataSetEntry::DataSetEntry(string url_, FileSystem::ptr fs,
+			   const DataSetInfo *dset, const CategoryInfo *cat) :
+  DataPoint(url_, fs), dataset(dset), category(cat) {
 
 }
+size_t      DataSetEntry::getLabel() const{ return category->getLabel();}
+std::string DataSetEntry::getCategory() const{ return category->getName();}
+std::string DataSetEntry::getDataSet() const { return dataset->getDataSetName();}
+
+
+SingleDataPoint::SingleDataPoint(string location, FileSystem::ptr fs) :
+  DataPoint(location, fs), label(999), cat("anonymous_category"), 
+  dset("anonymous_dataset"){
+    }
+std::size_t SingleDataPoint::getLabel() const{ return label;}
+std::string SingleDataPoint::getCategory() const{ return cat;}
+std::string SingleDataPoint::getDataSet() const{ return dset;}
+
+
+
+} // vito

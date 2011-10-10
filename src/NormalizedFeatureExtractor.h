@@ -11,7 +11,7 @@ public:
   NormalizedFeatureExtractor(IVisualFeatureExtractor::ptr e) : 
     VisualFeatureDecorator(e){
   }
-  virtual Descriptor extract(DataPoint dp, RgbImage *visrep = 0);
+  virtual Descriptor extract(const DataPoint *dp, RgbImage *visrep = 0);
   virtual std::string getName(){
     return "normalized_" + extractor->getName();
   }

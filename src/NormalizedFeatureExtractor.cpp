@@ -3,7 +3,7 @@
 namespace vito{
 namespace features{
 
-Descriptor NormalizedFeatureExtractor::extract(DataPoint dp, 
+Descriptor NormalizedFeatureExtractor::extract(const DataPoint *dp, 
 					       RgbImage *visrep){
   return extractor->extract(dp,visrep);
 }

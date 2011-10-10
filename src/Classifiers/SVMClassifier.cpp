@@ -30,7 +30,7 @@ void SVMClassifier::train(ExampleCollection examples){
   // destroy any existing models
   if(model){
     model = 0; // hopefully already done in prefious function
-  }
+  } 
   // destroy any existing problems
   if(prblm)
     svm_destroy_problem(&prblm);

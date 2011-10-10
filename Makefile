@@ -43,8 +43,6 @@ PLUGIN_OBJECTS = $(subst $(SRCDIR), $(OBJDIR), $(PLUGIN_SOURCES:.cpp=.dylib))
 
 OBJECTS = $(subst $(SRCDIR), $(OBJDIR), $(SOURCES:.cpp=.o))
 
-SOURCES += $(FEATUREOBJECTS) $(CLASSFIEROBJECTS)
-
 FEATUREOBJECTS = $(subst $(SRCDIR), $(OBJDIR), $(FEATURESOURCES:.cpp=.o))
 CLASSFIEROBJECTS = $(subst $(SRCDIR), $(OBJDIR), $(CLASSIFIERSOURCES:.cpp=.o))
 
@@ -139,12 +137,15 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CPPC) -c $(CPPFLAGS)  -o $@ $< $(IPATH)
 
 clean:
-	rm $(OBJECTS) $(APPLICATION)
+	rm $(OBJECTS) $(APPLICATION) $(PLUGIN_OBJECTS) $(CLASSFIEROBJECTS) $(FEATUREOBJECTS)
 
 clean_plugins:
 	rm $(PLUGIN_OBJECTS)
 
-test: testall
+touchtest:
+	touch $(TESTSOURCES)
+
+test: touchtest testall
 	./testall --log_level=test_suite;
 
 $(TESTPROGRAM) : all $(TESTOBJECTS)

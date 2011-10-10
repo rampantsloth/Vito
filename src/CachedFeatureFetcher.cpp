@@ -7,9 +7,9 @@ namespace features{
 
 using std::string;
 
-Descriptor::const_ptr CachedFeatureFetcher::extract(const DataPoint &dp, 
+Descriptor::const_ptr CachedFeatureFetcher::extract(const DataPoint *dp, 
 						    RgbImage *visrep){
-    string id = dp.get_identifier();
+    string id = dp->getIdentifier();
     Descriptor::ptr descriptor = cache.find(id);
     if(descriptor == 0){
       Descriptor::ptr desc(new Descriptor());

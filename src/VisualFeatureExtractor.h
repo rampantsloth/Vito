@@ -17,7 +17,7 @@ public:
     algorithm(alg){}
   // features name;
   virtual std::string getName(){return algorithm->getName();}
-  virtual Descriptor  extract(DataPoint dp, RgbImage *visrep = 0){
+  virtual Descriptor  extract(const DataPoint *dp, RgbImage *visrep = 0){
     return algorithm->extract(ImageAccess(dp), visrep);
   }
   virtual std::string getSpecification() const{ 

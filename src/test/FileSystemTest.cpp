@@ -8,7 +8,7 @@
 using namespace vito;
 using std::vector;
 
-BOOST_AUTO_TEST_CASE(FileSystemTest){
+BOOST_AUTO_TEST_CASE(FileSystemTest){ 
  FileSystem::ptr system( new BoostFileSystem());
  vector<float> vec;
  vec.reserve(1000);

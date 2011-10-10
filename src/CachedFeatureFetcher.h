@@ -16,7 +16,7 @@ public:
   CachedFeatureFetcher(IVisualFeatureExtractor::ptr ext):
     extractor(ext), cache(100){
   }
-  virtual Descriptor::const_ptr extract(const DataPoint &dp, 
+  virtual Descriptor::const_ptr extract(const DataPoint *dp, 
 					RgbImage *visrep = 0);
 };
 

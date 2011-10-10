@@ -16,7 +16,7 @@ private:
 public:
   StoredFeatureExtractor(IVisualFeatureExtractor::ptr e, FileSystem::ptr fs, 
 			 std::string storagelocation, std::string hsh) ;
-  virtual Descriptor extract(DataPoint dp, RgbImage *visrep = 0);
+  virtual Descriptor extract(const DataPoint *dp, RgbImage *visrep = 0);
   virtual std::string getName(){
     return "stored_" + extractor->getName();
   }
