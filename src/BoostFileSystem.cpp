@@ -30,16 +30,17 @@ file_list BoostFileSystem::getSubDirectories(std::string str) const{
 bool BoostFileSystem::isImage(std::string im) const{
   path p(im);
   for(file_list::const_iterator i = valid_extensions.begin(); 
-      i != valid_extensions.end(); ++i)
+      i != valid_extensions.end(); ++i){
     if(extension(p) == *i)
       return true;
+  }
   return false;
 }
 
 bool BoostFileSystem::dirHasImages(std::string dir) const {
   path root(dir);
- for(dir_it i(root); i != dir_it(); ++i)
-   if(isImage(i->string()))
+  for(dir_it i(root); i != dir_it(); ++i)
+    if(isImage(i->string()))
       return true;
  return false;
 }

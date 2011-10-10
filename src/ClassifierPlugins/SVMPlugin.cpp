@@ -32,5 +32,4 @@ extern "C"{
   };
   SVMInitializer p;
   
-  int bla(){return 0;}
 }

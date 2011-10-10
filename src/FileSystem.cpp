@@ -51,20 +51,20 @@ vector<float> FileSystem::readDescriptor(string location){
 FileSystem::FileSystem(){
 // files supported by opengl;
   valid_extensions.reserve(13);
-  valid_extensions.push_back("bmp");
-  valid_extensions.push_back("dib");
-  valid_extensions.push_back("jpg");
-  valid_extensions.push_back("jpeg");
-  valid_extensions.push_back("jpe");
-  valid_extensions.push_back("jp2");
-  valid_extensions.push_back("png");
-  valid_extensions.push_back("pbm");
-  valid_extensions.push_back("pgm");
-  valid_extensions.push_back("ppm");
-  valid_extensions.push_back("sr");
-  valid_extensions.push_back("ras");
-  valid_extensions.push_back("tiff");
-  valid_extensions.push_back("tif");
+  valid_extensions.push_back(".bmp");
+  valid_extensions.push_back(".dib");
+  valid_extensions.push_back(".jpg");
+  valid_extensions.push_back(".jpeg");
+  valid_extensions.push_back(".jpe");
+  valid_extensions.push_back(".jp2");
+  valid_extensions.push_back(".png");
+  valid_extensions.push_back(".pbm");
+  valid_extensions.push_back(".pgm");
+  valid_extensions.push_back(".ppm");
+  valid_extensions.push_back(".sr");
+  valid_extensions.push_back(".ras");
+  valid_extensions.push_back(".tiff");
+  valid_extensions.push_back(".tif");
 }
 
 
