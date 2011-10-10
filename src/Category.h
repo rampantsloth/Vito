@@ -19,7 +19,8 @@ friend class DataSet;
 protected:
   Category( std::string root, size_t label, 
 	    FileSystem::ptr fs, const DataSetInfo *info );
-
+public:
+  void print();
 };
 
 }

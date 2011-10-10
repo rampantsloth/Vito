@@ -14,14 +14,13 @@ namespace vito{
 class Category;
 class CategoryInfo;
 
-
-
 class DataSet : public DataSetInfo{
 private:
   FileSystem::ptr filesystem;
   std::vector<Category> categories;
 public:
   DataSet(std::string rt, FileSystem::ptr fs);
+  void print();
 };
 
 

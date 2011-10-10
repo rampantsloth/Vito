@@ -7,7 +7,7 @@
 namespace vito{
 
 class DataSetInfo{
-private:
+protected:
   const std::string root;
   const std::string dataset_name;
 protected:
@@ -18,10 +18,10 @@ public:
 };
 
 class CategoryInfo{
+protected:
   std::string root;
   std::string name;
   size_t label;
-protected:
   CategoryInfo( std::string root, std::string name, size_t label);
 public:
   std::string getRoot() const;
@@ -30,8 +30,7 @@ public:
 };
 
 class DataPoint{
-public:
-private:
+protected:
   std::string url;
   std::string filename;
 public:
@@ -42,7 +41,7 @@ public:
   virtual std::size_t getLabel() const = 0 ;
   virtual std::string getCategory() const = 0;
   virtual std::string getDataSet() const = 0;
-
+  void print();
   virtual ~DataPoint(){}
 };
 

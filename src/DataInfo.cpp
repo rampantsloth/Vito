@@ -1,5 +1,6 @@
 #include "DataInfo.h"
 
+#include <iostream>
 using std::string;
 
 namespace vito{
@@ -30,5 +31,9 @@ DataSetInfo::DataSetInfo(std::string rt, std::string dsname)
 
 std::string DataSetInfo::getRoot() const { return root; }
 std::string DataSetInfo::getDataSetName() const { return dataset_name; }
-
+void        DataPoint::print(){
+  std::cout << "\tDataPoint: " << std::endl;
+  std::cout << "\t\t name: " << getFileName() << std::endl;
+  std::cout << "\t\t url: " << getURL() << std::endl;
+}
 }
