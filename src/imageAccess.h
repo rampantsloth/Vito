@@ -1,7 +1,7 @@
 #ifndef IMAGE_ACCES_H
 #define IMAGE_ACCES_H
 
-#include "dataPoint.h"
+#include "DataPoint.h"
 #include "gradient.h"
 
 
@@ -14,12 +14,12 @@ namespace features{
 class CachedFeature;
 }
 
-class ImageAccess : private DataPoint{
-
+class ImageAccess {
   friend class features::CachedFeature;
-
+protected:
+  const DataPoint *datapoint;
 public:
-  ImageAccess(DataPoint dp);
+  ImageAccess(const DataPoint *dp);
 
   BwImage                 getBwImage();
   RgbImage                getRgbImage();

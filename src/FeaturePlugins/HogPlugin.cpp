@@ -10,6 +10,7 @@ using vito::ParameterDataSource;
 
 extern "C"{
 
+
   VisualFeatureAlgorithm::ptr makeHoG(vito::ParameterDataSource::ptr source){
 #define set(dummy, std) parameters.dummy = source->get("HoG", #dummy, std);
     HoG::Parameters parameters;
@@ -25,6 +26,7 @@ extern "C"{
   class HOGInitializer{
   public:
     HOGInitializer(){
+      std::cout << "adding HoG" << std::endl;
       feature_factory["HoG"] = makeHoG;
   }
   };

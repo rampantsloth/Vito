@@ -13,8 +13,8 @@ using namespace vito;
 BOOST_AUTO_TEST_CASE(TestSVM){
   FileSystem::ptr system( new BoostFileSystem());
   ParameterDataSource::ptr dsource(new XMLParameterDataSource ("parameters.xml"));
-  ClassifierFactory factory(system, dsource, CLASSIFIERPLUGINDIR);
-  ClassifierAlgorithm::ptr calg = factory.getAlgorithm("SVM");
+  ClassifierFactory factory(system,  CLASSIFIERPLUGINDIR);
+  ClassifierAlgorithm::ptr calg = factory.getAlgorithm("SVM", dsource);
   BOOST_CHECK(calg != 0);
 #define makevector(name, v1,v2,v3,v4)		\
   Descriptor name;				\

@@ -9,7 +9,7 @@ namespace classification{
 
 class SVMClassifier : public ClassifierAlgorithm{
 public:
-  typedef svm_parameter Parameters;
+  typedef svm_parameter Parameters;  
   virtual ~SVMClassifier();
   SVMClassifier(Parameters pars);
   virtual Label classify(const Descriptor &descriptor) const;

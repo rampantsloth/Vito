@@ -17,7 +17,8 @@ BOOST_AUTO_TEST_CASE(TestFeatureFetcher){
   IVisualFeatureExtractor::ptr hog = factory.getExtractor("HoG", dsource);
   std::cout << hog->getSpecification() << std::endl;
   std::cout << dsource->getSpecification() << std::endl;
-  hog->extract(DataPoint(0,"image_0001.jpg", file,file));
+  SingleDataPoint dp("image_0001.jpg", system);
+  hog->extract(&dp); 
   //IVisualFeatureFetcher::ptr ho4 = factory.getFetcher("HoG", true, true);
 
 }

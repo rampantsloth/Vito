@@ -2,18 +2,18 @@
 
 namespace vito{
 
-ImageAccess::ImageAccess(DataPoint datapoint) : DataPoint(datapoint){}
+ImageAccess::ImageAccess(const DataPoint *dp) : datapoint(dp){}
 
 BwImage ImageAccess::getBwImage(){
-  return BwImage(get_image_url());
+  return BwImage(datapoint->getURL());
 }
 
 RgbImage ImageAccess::getRgbImage(){
-  return RgbImage(get_image_url());
+  return RgbImage(datapoint->getURL());
 }
 
 features::ImageGradient ImageAccess::getImageGradient(){
-  BwImage bw(get_image_url());
+  BwImage bw(datapoint->getURL());
   return features::ImageGradient(&bw, features::GradientParameters());
 }
 
