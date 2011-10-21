@@ -12,7 +12,7 @@ class ClassifierAlgorithm{
 public:
   typedef boost::shared_ptr<ClassifierAlgorithm> ptr;
   virtual ~ClassifierAlgorithm(){};
-  virtual void train(ExampleCollection a) = 0;
+  virtual void train(const std::vector<Example> &examples) = 0;
   virtual Label classify(const Descriptor &descriptor) const = 0;
   virtual std::string getName() = 0;
 };

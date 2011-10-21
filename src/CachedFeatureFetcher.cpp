@@ -7,7 +7,7 @@ namespace features{
 
 using std::string;
 
-Descriptor::const_ptr CachedFeatureFetcher::extract(const DataPoint *dp, 
+const Descriptor *CachedFeatureFetcher::extract(const DataPoint *dp, 
 						    RgbImage *visrep){
     string id = dp->getIdentifier();
     Descriptor::ptr descriptor = cache.find(id);
@@ -19,7 +19,7 @@ Descriptor::const_ptr CachedFeatureFetcher::extract(const DataPoint *dp,
     }
     if(descriptor == 0)
       throw exception::CacheReadingError();
-    return descriptor;
+    return &*descriptor;
   }
 
 } // vito

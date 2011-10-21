@@ -46,41 +46,6 @@ void Descriptor::normalize(const float min,
 void Descriptor::print() const{
   for(size_t i =0; i < size(); ++i)
     cout << at(i) << endl;
-}
-
-
-void ExampleCollection::print(){
-  map<int,int> label_histogram;
-  // make histogram of all labels
-  for(ExampleCollection::iterator it = begin(); 
-      it != end();
-      ++it)
-    label_histogram[it->get_label()]++;
-  // print histogram values
-  for(map<int,int>::iterator it = label_histogram.begin(); 
-      it != label_histogram.end();
-      ++it)
-    cout << it->first << " has: " << it->second << endl;
-}
-
-ExampleCollection::ExampleCollection(const vector<Descriptor> &descs, 
-		    const LabelCollection &labels){
-  reserve(descs.size());
-  DescriptorCollection::const_iterator i = descs.begin();
-  LabelCollection::const_iterator j = labels.begin();
-  while(i != descs.end() && j != labels.end()){
-    push_back(Example(*i,*j));
-    i++; j++;
-  }
-}
-
-int Example::get_label() const{
-  return label;
-}
-void Example::set_label(const int l){
-  label = l;
-}
-
-
+} 
 
 }

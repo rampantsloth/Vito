@@ -13,14 +13,14 @@ public:
   virtual ~SVMClassifier();
   SVMClassifier(Parameters pars);
   virtual Label classify(const Descriptor &descriptor) const;
-  virtual void  train(ExampleCollection dp);
+  virtual void  train(const std::vector<Example> &examples);
 private:
   Parameters   parameters; 
   svm_model   *model;
   svm_problem *prblm;
 
   void         svm_destroy_problem(svm_problem **problem);
-  svm_problem *compileProblem(const ExampleCollection &examples);
+  svm_problem *compileProblem(const std::vector<Example> &examples);
   svm_node    *constructNode(const Descriptor &descriptor) const;
   void         addExampleToProblem(svm_problem  *problem_, 
 				   const Example &example);

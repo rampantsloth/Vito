@@ -17,10 +17,19 @@ XMLParameterDataSource::XMLParameterDataSource(string location){
   if(!document.LoadFile()){
     throw exception::FileNotFound();
   }
+  // find vito child
+ TiXmlNode *vitoNode = 0;
+  bool found = false;
+  while(!found && (vitoNode = document.IterateChildren(vitoNode)))
+    if((string) vitoNode->Value() == "vito")
+      found = true;
+  if(!found){
+    throw exception::XML();
+  }
   // find the parameters child
   TiXmlNode *parameterNode = 0;
-  bool found = false;
-  while(!found && (parameterNode = document.IterateChildren(parameterNode)))
+  found = false;
+  while(!found && (parameterNode = vitoNode->IterateChildren(parameterNode)))
     if((string) parameterNode->Value() == "parameters")
       found = true;
   if(!found){

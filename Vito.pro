@@ -14,13 +14,14 @@ INCLUDEPATH +=  ./libs/libsvm-3.0 \
                 /opt/local/include \
                 /opt/local/include/opencv \
                 ./libs \
-                ./src/
+                ./src/ \
+                ./gui/
 
 SOURCES +=\
     gui/mainwindow.cpp \
     gui/main.cpp \
     src/XMLParameterDataSource.cpp \
-    src/SVMClassifier.cpp \
+    src/Classifiers/SVMClassifier.cpp \
     src/sharedpointer.cpp \
     src/PluginLoader.cpp \
     src/ParameterDataSource.cpp \
@@ -28,18 +29,30 @@ SOURCES +=\
     src/imageAccess.cpp \
     src/Image.cpp \
     src/gradient.cpp \
-    src/FeaturePluginManager.cpp \
     src/FeatureFactory.cpp \
     src/estimation.cpp \
-    src/descriptor.cpp \
     src/demo.cpp \
     src/dataPoint.cpp \
-    src/classifier.cpp \
     src/BoostFileSystem.cpp \
     libs/tinyxml/tinyxmlparser.cpp \
     libs/tinyxml/tinyxmlerror.cpp \
     libs/tinyxml/tinyxml.cpp \
-    libs/tinyxml/tinystr.cpp
+    libs/tinyxml/tinystr.cpp \
+    src/StoredFeatureExtractor.cpp \
+    src/ParameterDataSourceRecorder.cpp \
+    src/NormalizedFeatureExtractor.cpp \
+    src/FileSystem.cpp \
+    src/Descriptor.cpp \
+    src/DataSet.cpp \
+    src/DataInfo.cpp \
+    src/ClassifierFactory.cpp \
+    src/Category.cpp \
+    src/CachedFeatureFetcher.cpp \
+    src/Features/Hog.cpp \
+    libs/libsvm-3.0/svm.cpp \
+    src/VitoApplication.cpp \
+    gui/datasettreeview.cpp \
+    gui/imagedisplay.cpp
 
 HEADERS  += gui/mainwindow.h \
     src/XMLParameterDataSource.h \
@@ -68,11 +81,27 @@ HEADERS  += gui/mainwindow.h \
     src/descriptor.h \
     src/demo.h \
     src/dataPoint.h \
-    src/classifier.h \
     src/CachedFeatureExtractor.h \
     src/BoostFileSystem.h \
     libs/tinyxml/tinyxml.h \
-    libs/tinyxml/tinystr.h
+    libs/tinyxml/tinystr.h \
+    src/StoredFeatureExtractor.h \
+    src/PluginFactory.h \
+    src/ParameterDataSourceRecorder.h \
+    src/NormalizedFeatureExtractor.h \
+    src/Exceptions.h \
+    src/DataSet.h \
+    src/DataInfo.h \
+    src/ClassifierFactory.h \
+    src/ClassifierAlgorithm.h \
+    src/Category.h \
+    src/CachedFeatureFetcher.h \
+    src/Features/Hog.h \
+    src/Classifiers/SVMClassifier.h \
+    libs/libsvm-3.0/svm.h \
+    src/VitoApplication.h \
+    gui/datasettreeview.h \
+    gui/imagedisplay.h
 
 FORMS    += gui/mainwindow.ui
 
@@ -83,12 +112,86 @@ LIBS  +=  -L/opt/local/lib
 LIBS  +=  -L/usr/local/lib
 #LIBS  +=  -L./libs/
 
+DEFINES += CLASSIFIERPLUGINDIR=\\\"obj/ClassifierPlugins\\\"
+DEFINES += DESCRIPTORLOCATION=\\\"desc\\\"
 DEFINES += FEATUREPLUGINDIR=\\\"obj/FeaturePlugins\\\"
 
 unix:!symbian|win32: LIBS += -lboost_filesystem -lboost_system
 
 unix|!symbian|win32: LIBS += -lopencv_ml -lopencv_core -lopencv_imgproc \
                     -lopencv_objdetect -lopencv_highgui -lopencv_legacy\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -45,35 +45,16 @@ public:
 
 // Collection structure for both
 
-class Example : public Descriptor{
-private:
+struct Example{
+  const Descriptor *descriptor;
   int label;
-public:
-  Example() : Descriptor() {}
-  Example(size_t size) : Descriptor(size) {}
-  Example(std::vector<float> values) : Descriptor(values) {}
-  Example(std::vector<float> values, int l) : Descriptor(values), label(l){}
-
-  void set_label(const int i);
-  int  get_label() const;
-};
-
-class ExampleCollection : public std::vector<Example> {
-public:
-  ExampleCollection() : std::vector<Example>() {}
-  ExampleCollection(size_t size) : std::vector<Example>(size){}
-  ExampleCollection(const std::vector<Descriptor> &descs, 
-		    const LabelCollection &labels);
-  void print();
+  Example(const Descriptor *d, size_t i) : descriptor(d), label(i){}
+  Example(const Descriptor &d, size_t i) : descriptor(&d), label(i){}
 };
 
 class DescriptorCollection : public std::vector<Descriptor> {
 public:
   DescriptorCollection(){}
-  DescriptorCollection(const ExampleCollection &collection){
-    for(size_t i = 0; i < collection.size(); i++)
-      push_back((Descriptor&) collection[i]);
-  }
   DescriptorCollection(size_t size) : std::vector<Descriptor> (size) {}
 };
 

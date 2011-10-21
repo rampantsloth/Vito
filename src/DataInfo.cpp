@@ -21,7 +21,7 @@ CategoryInfo::CategoryInfo(string root_, string name_, size_t label_) :
   root(root_), name(name_), label(label_){}
 
 std::string CategoryInfo::getRoot() const{  return root; }
-std::string CategoryInfo::getName() const{ return getName(); }
+std::string CategoryInfo::getName() const{ return name; }
 size_t CategoryInfo::getLabel() const{ return label; }
 
 // dataset

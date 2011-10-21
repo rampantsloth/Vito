@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(TestSVM){
   makevector(b2,0.72, 0.522, 0.943, 0.914);
   makevector(b3,0.94, 0.924, 0.733, 0.831);
   makevector(b4,0.602 ,0.725, 0.7013, 0.712);
-  ExampleCollection col;
+  std::vector<Example> col;
   col.push_back(Example(a1,2));
   col.push_back(Example(a2,2));
   col.push_back(Example(a3,2));

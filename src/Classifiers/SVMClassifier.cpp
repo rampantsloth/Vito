@@ -26,7 +26,7 @@ void SVMClassifier::svm_destroy_problem(svm_problem **problem_){
   problem_ = 0;
 }
 
-void SVMClassifier::train(ExampleCollection examples){
+void SVMClassifier::train(const std::vector<Example> &examples){
   // destroy any existing models
   if(model){
     model = 0; // hopefully already done in prefious function
@@ -58,7 +58,7 @@ Label SVMClassifier::classify(const Descriptor &descriptor) const{
   return result;
 }
 
-svm_problem* SVMClassifier::compileProblem(const ExampleCollection &examples){
+svm_problem* SVMClassifier::compileProblem(const std::vector<Example> &examples){
   // check if there are 1 or more examples to train on
   const int& kExamples = examples.size();
   if(kExamples < 1){
@@ -72,7 +72,7 @@ svm_problem* SVMClassifier::compileProblem(const ExampleCollection &examples){
   problem.y = new double[kExamples]; // labels
   problem.x = new svm_node*[kExamples]; // datapoints
   // add every example to our newly allocated svm_problem
-  for(ExampleCollection::const_iterator i = examples.begin();
+  for(std::vector<Example>::const_iterator i = examples.begin();
       i != examples.end(); ++i)
     addExampleToProblem(problem_, *i);
   return problem_;
@@ -80,8 +80,8 @@ svm_problem* SVMClassifier::compileProblem(const ExampleCollection &examples){
 
 void SVMClassifier::addExampleToProblem(svm_problem *problem, 
 					const Example &example){
-  problem->y[problem->l] = (double) example.get_label();
-  problem->x[problem->l] = constructNode(example);
+  problem->y[problem->l] = (double) example.label;
+  problem->x[problem->l] = constructNode(*example.descriptor);
   problem->l++;
 }
 

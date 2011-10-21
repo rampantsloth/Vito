@@ -8,8 +8,8 @@ namespace vito{
 
 class DataSetInfo{
 protected:
-  const std::string root;
-  const std::string dataset_name;
+  std::string root;
+  std::string dataset_name;
 protected:
   DataSetInfo(std::string root, std::string dataset_name);
 public:

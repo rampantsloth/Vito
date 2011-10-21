@@ -10,6 +10,7 @@ namespace vito{
 class FileSystem{
 public:
   typedef boost::shared_ptr<FileSystem> ptr;
+  typedef boost::shared_ptr<FileSystem> const_ptr;
   typedef std::vector<std::string> file_list;
 protected:
   file_list valid_extensions;

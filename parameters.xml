@@ -1,17 +1,19 @@
-<parameters>
-  <HoG>
-    <blur type="bool"> 0 </blur>
-    <blur_size type="uint"> 6 </blur_size>
-    <xhistograms type="uint"> 4 </xhistograms>
-    <yhistograms type="uint"> 4 </yhistograms>
-    <orientations type="uint"> 10  </orientations>
-  </HoG>
-  <SVM>
-    <shrinking type="bool"> 0 </shrinking>
-    <probability type="bool"> 0 </probability>
-    <cache_size type="int"> 1024 </cache_size>
-    <epsilon type="double"> 0.64 </epsilon>
-    <C type="double"> 10.01 </C>
-    <gamma type="double">0.2 </gamma>
-  </SVM>
-</parameters>
+<vito>
+  <parameters>
+    <HoG>
+      <blur type="bool"> 0 </blur>
+      <blur_size type="uint"> 6 </blur_size>
+      <xhistograms type="uint"> 4 </xhistograms>
+      <yhistograms type="uint"> 4 </yhistograms>
+      <orientations type="uint"> 10  </orientations>
+    </HoG>
+    <SVM>
+      <shrinking type="bool"> 0 </shrinking>
+      <probability type="bool"> 0 </probability>
+      <cache_size type="int"> 1024 </cache_size>
+      <epsilon type="double"> 0.64 </epsilon>
+      <C type="double"> 10.01 </C>
+      <gamma type="double">0.2 </gamma>
+    </SVM>
+  </parameters>
+</vito>

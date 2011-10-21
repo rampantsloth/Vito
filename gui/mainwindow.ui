@@ -6,20 +6,128 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>800</height>
+    <width>1040</width>
+    <height>739</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <property name="documentMode">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Dataset</string>
+       </attribute>
+       <widget class="QWidget" name="widget" native="true">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>2</y>
+          <width>301</width>
+          <height>631</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QPushButton" name="loadDataSetButton">
+           <property name="text">
+            <string>Load Dataset ..</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>DataSet Browser :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="DatasetTreeView" name="datasetSelector">
+           <column>
+            <property name="text">
+             <string notr="true">1</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="widget_2" native="true">
+        <property name="geometry">
+         <rect>
+          <x>299</x>
+          <y>-8</y>
+          <width>701</width>
+          <height>641</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Image View:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ImageDisplay" name="imagesdisplay"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Pipeline</string>
+       </attribute>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>221</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Create Pipeline from XML: ...</string>
+        </property>
+       </widget>
+       <widget class="QTreeView" name="treeView">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>221</width>
+          <height>461</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Experiment</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1000</width>
+     <width>1040</width>
      <height>22</height>
     </rect>
    </property>
@@ -27,7 +135,7 @@
     <property name="title">
      <string>DataSet</string>
     </property>
-    <addaction name="actionOpen_Database"/>
+    <addaction name="actionLoad_DataSet"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -40,13 +148,62 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionOpen_Database">
+  <action name="actionLoad_DataSet">
    <property name="text">
-    <string>Open Database</string>
+    <string>Load DataSet ..</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>DatasetTreeView</class>
+   <extends>QTreeWidget</extends>
+   <header>datasettreeview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ImageDisplay</class>
+   <extends>QGraphicsView</extends>
+   <header>imagedisplay.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionLoad_DataSet</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>promptDataSet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>451</x>
+     <y>303</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>loadDataSetButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>promptDataSet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>90</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>451</x>
+     <y>303</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>dataSetChanged(vito::Dataset*)</signal>
+  <slot>promptDataSet()</slot>
+ </slots>
 </ui>
