@@ -1,5 +1,7 @@
 #include "SVMClassifier.h"
 
+#include <sstream>
+
 using std::cout;
 using std::endl;
 
@@ -34,7 +36,7 @@ void SVMClassifier::train(const std::vector<Example> &examples){
   // destroy any existing problems
   if(prblm)
     svm_destroy_problem(&prblm);
-  // train!
+  // train! 
   prblm = compileProblem(examples);
   model = svm_train(prblm, &parameters);
 }
@@ -95,6 +97,27 @@ svm_node* SVMClassifier::constructNode(const Descriptor &descriptor) const {
   nodes[descriptor.size()].value = 0.0;
   nodes[descriptor.size()].index = -1; 
   return nodes;
+}
+
+std::string SVMClassifier::getSpecification(){
+  std::stringstream ss;
+  ss << "svm_classifier{";
+#define writepar(p) ss << "_"  << #p << "=" << parameters.p;
+  writepar(svm_type);
+  writepar(kernel_type);
+  writepar(degree);
+  writepar(gamma);
+  writepar(coef0);
+  writepar(cache_size);
+  writepar(eps);
+  writepar(C);
+  writepar(nr_weight);
+  writepar(nu);
+  writepar(p);
+  writepar(shrinking);
+  writepar(probability);
+  ss << "}";
+  return ss.str();
 }
 
 }// classification

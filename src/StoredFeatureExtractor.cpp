@@ -18,8 +18,9 @@ StoredFeatureExtractor::StoredFeatureExtractor(IVisualFeatureExtractor::ptr e,
 
 Descriptor StoredFeatureExtractor::extract(const DataPoint *dp, 
 					   RgbImage *visrep){
-  cout << "stored feature here" << endl;
-  std::string location = directory +  "/"  + dp->getFileName();
+  std::string location =
+    directory +  "/"  + dp->getDataSet() + "_" + dp ->getCategory() 
+    + "_" + dp->getFileName();
   if(filesystem->exists(location))
     return Descriptor(filesystem->readDescriptor(location));
   else{

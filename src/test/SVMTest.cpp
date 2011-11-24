@@ -17,11 +17,11 @@ BOOST_AUTO_TEST_CASE(TestSVM){
   ClassifierAlgorithm::ptr calg = factory.getAlgorithm("SVM", dsource);
   BOOST_CHECK(calg != 0);
 #define makevector(name, v1,v2,v3,v4)		\
-  Descriptor name;				\
-  name.push_back(v1);				\
-  name.push_back(v2);				\
-  name.push_back(v3);				\
-  name.push_back(v4);
+  Descriptor::ptr name(new Descriptor);		\
+  name->push_back(v1);				\
+  name->push_back(v2);				\
+  name->push_back(v3);				\
+  name->push_back(v4);
   makevector(a1,0.1, 0.2, 0.63, 0.21);
   makevector(a2,0.2, 0.22, 0.43, 0.14);
   makevector(a3,0.4, 0.24, 0.33, 0.31);
@@ -42,16 +42,16 @@ BOOST_AUTO_TEST_CASE(TestSVM){
   calg->train(col);
   calg->train(col);
   calg->train(col);
-  BOOST_CHECK(calg->classify(a1) == 2);
-  BOOST_CHECK(calg->classify(b1) == 4);
-  BOOST_CHECK(calg->classify(a2) == 2);
-  BOOST_CHECK(calg->classify(b2) == 4);
-  BOOST_CHECK(calg->classify(a3) == 2);
-  BOOST_CHECK(calg->classify(b3) == 4);
-  BOOST_CHECK(calg->classify(a4) == 2);
-  BOOST_CHECK(calg->classify(b4) == 4);
+  BOOST_CHECK(calg->classify(*a1) == 2);
+  BOOST_CHECK(calg->classify(*b1) == 4);
+  BOOST_CHECK(calg->classify(*a2) == 2);
+  BOOST_CHECK(calg->classify(*b2) == 4);
+  BOOST_CHECK(calg->classify(*a3) == 2);
+  BOOST_CHECK(calg->classify(*b3) == 4);
+  BOOST_CHECK(calg->classify(*a4) == 2);
+  BOOST_CHECK(calg->classify(*b4) == 4);
   makevector(a5, 0.123, 0.54, 0.23, 0.43);
   makevector(b5, 0.5123, 0.654, 0.823, 0.943);
-  BOOST_CHECK(calg->classify(a5) == 2);
-  BOOST_CHECK(calg->classify(b5) == 4);
+  BOOST_CHECK(calg->classify(*a5) == 2);
+  BOOST_CHECK(calg->classify(*b5) == 4);
 }

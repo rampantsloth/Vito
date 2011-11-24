@@ -2,6 +2,8 @@
 
 #include <iostream>
 using std::string;
+using std::cout;
+using std::endl;
 
 namespace vito{
 
@@ -13,7 +15,7 @@ DataPoint::DataPoint(string url_, FileSystem::ptr filesystem) :
 string DataPoint::getFileName() const{return filename;}
 string DataPoint::getURL() const{ return url;}
 string DataPoint::getIdentifier() const { 
-  return getDataSet() + "_" + getCategory() + "_" + getFileName(); 
+  return "" + getDataSet() + "_" + getCategory() + "_" + getFileName(); 
 }
 // category
 

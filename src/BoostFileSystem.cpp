@@ -74,7 +74,6 @@ size_t  BoostFileSystem::getHash(std::string str) const{
 }
 
 void BoostFileSystem::createDir(std::string str) const {
-  cout << "creating " << str << endl;
   path dir(str);
   if(!boost::filesystem::exists(str) || !is_directory(dir)) create_directory(dir);
 }

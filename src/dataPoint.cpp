@@ -1,18 +1,20 @@
 #include "DataPoint.h"
+#include <iostream>
 
 using std::string;
+using std::cout;
+using std::endl;
 
 namespace vito{
 
 
 DataSetEntry::DataSetEntry(string url_, FileSystem::ptr fs,
 			   const DataSetInfo *dset, const CategoryInfo *cat) :
-  DataPoint(url_, fs), dataset(dset), category(cat) {
-
-}
+  DataPoint(url_, fs), dataset(dset), category(cat) {}
 size_t      DataSetEntry::getLabel() const{ return category->getLabel();}
 std::string DataSetEntry::getCategory() const{ return category->getName();}
 std::string DataSetEntry::getDataSet() const { return dataset->getDataSetName();}
+
 
 
 SingleDataPoint::SingleDataPoint(string location, FileSystem::ptr fs) :

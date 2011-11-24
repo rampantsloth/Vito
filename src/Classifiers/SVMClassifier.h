@@ -10,11 +10,12 @@ namespace classification{
 class SVMClassifier : public ClassifierAlgorithm{
 public:
   typedef svm_parameter Parameters;  
+  virtual std::string getSpecification();
   virtual ~SVMClassifier();
-  SVMClassifier(Parameters pars);
+  SVMClassifier(Parameters pars); 
   virtual Label classify(const Descriptor &descriptor) const;
   virtual void  train(const std::vector<Example> &examples);
-private:
+private:  
   Parameters   parameters; 
   svm_model   *model;
   svm_problem *prblm;

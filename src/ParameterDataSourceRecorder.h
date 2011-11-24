@@ -21,6 +21,10 @@ public:
     true_source(orig), record(new ParameterDataSource()) {
   }
 
+  ParameterDataSourceRecorder(ParameterDataSource::ptr original_,
+			      ParameterDataSource::ptr reccord_) :
+    true_source(original_), record(reccord_) {}
+
 
   virtual ~ParameterDataSourceRecorder(){}
   // add/get size_t values

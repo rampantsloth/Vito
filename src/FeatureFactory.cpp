@@ -1,6 +1,7 @@
 #include "FeatureFactory.h"
 #include "NormalizedFeatureExtractor.h"
 #include "StoredFeatureExtractor.h"
+#include "CachedFeatureFetcher.h"
 
 using std::cout;
 using std::endl;
@@ -27,6 +28,7 @@ Extractor::ptr FeatureFactory::getExtractor(string str,
   return getExtractor(str, dsrc);
 }
 
+
 Extractor::ptr FeatureFactory::getExtractor(string str, 
 					    ParameterDataSource::ptr dsource)  {
   bool stored = dsource->get(str, "stored", true);
@@ -34,8 +36,9 @@ Extractor::ptr FeatureFactory::getExtractor(string str,
     dsource = ParameterDataSource::ptr(new ParameterDataSourceRecorder(dsource));
 
   bool normalized = dsource->get(str, "normalized", true);
-  IVisualFeatureExtractor::ptr ext(new VisualFeatureExtractor
-				   (getAlgorithm(str, dsource)));
+  std::cout << "doing " << str << " with: " << dsource->getSpecification() <<std::endl;
+  VisualFeatureAlgorithm::ptr alg = getAlgorithm(str, dsource);
+  IVisualFeatureExtractor::ptr ext(new VisualFeatureExtractor (alg));
   if(normalized)
     ext = IVisualFeatureExtractor::ptr( new NormalizedFeatureExtractor(ext) );
   if(stored) 
@@ -45,10 +48,19 @@ Extractor::ptr FeatureFactory::getExtractor(string str,
   return ext;
 }
 
-Fetcher::ptr FeatureFactory::getFetcher(string tr, bool stored, bool norm){
-
+Fetcher::ptr FeatureFactory::getFetcher(string tr, ParameterDataSource::ptr ds,
+					bool stored, bool norm){
+  ds->add(tr, "normalized", norm);
+  ds->add(tr, "stored", stored);
+  return getFetcher(tr, ds);
 }
 
+Fetcher::ptr FeatureFactory::getFetcher(string tr, ParameterDataSource::ptr ds){
+  IVisualFeatureExtractor::ptr extractor = getExtractor(tr, ds);
+  IVisualFeatureFetcher::ptr fetcher( new CachedFeatureFetcher(extractor));
+  return fetcher;
+
+}
 
 } // features
 } // vito

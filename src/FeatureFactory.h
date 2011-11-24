@@ -15,6 +15,7 @@ class FeatureFactory : public PluginFactory<VisualFeatureAlgorithm>{
 protected:
   const factory &getFactory() const;
 public:
+  typedef boost::shared_ptr<FeatureFactory> ptr;
   FeatureFactory(FileSystem::ptr fs, 
 		 std::string plugin_directory) : 
     PluginFactory<VisualFeatureAlgorithm>(fs,  plugin_directory){
@@ -29,9 +30,9 @@ public:
 			      bool normalized);
   Extractor::ptr getExtractor(std::string str,
 			      ParameterDataSource::ptr dsrc);
-  Fetcher::ptr   getFetcher(std::string str,
-			    bool stored = false,
-			    bool normalized = true);
+  Fetcher::ptr getFetcher(string tr, ParameterDataSource::ptr ds,
+			  bool stored, bool norm);
+  Fetcher::ptr getFetcher(string tr, ParameterDataSource::ptr ds);
 
 };
 

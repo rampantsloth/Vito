@@ -1,6 +1,5 @@
 #include "XMLParameterDataSource.h"
 
-#include "tinyxml/tinyxml.h"
 #include <boost/lexical_cast.hpp>
 
 using std::string;
@@ -10,7 +9,9 @@ using std::endl;
 #include "Exceptions.h"
 
 namespace vito{
- 
+
+
+
 XMLParameterDataSource::XMLParameterDataSource(string location){
   // load the document
   TiXmlDocument document(location.c_str());
@@ -18,30 +19,25 @@ XMLParameterDataSource::XMLParameterDataSource(string location){
     throw exception::FileNotFound();
   }
   // find vito child
- TiXmlNode *vitoNode = 0;
-  bool found = false;
-  while(!found && (vitoNode = document.IterateChildren(vitoNode)))
-    if((string) vitoNode->Value() == "vito")
-      found = true;
-  if(!found){
-    throw exception::XML();
-  }
-  // find the parameters child
-  TiXmlNode *parameterNode = 0;
-  found = false;
-  while(!found && (parameterNode = vitoNode->IterateChildren(parameterNode)))
-    if((string) parameterNode->Value() == "parameters")
-      found = true;
-  if(!found){
-    throw exception::XML();
-  }
+  TiXmlNode *vitoNode = findChild(&document, "vito");
+  TiXmlNode *parameterNode = findChild(vitoNode, "parameters");
   // iterate each parameter group
-  TiXmlNode *pGroup = 0;
+ 
+    extractParameters(parameterNode);    
+  
+}
+
+XMLParameterDataSource::XMLParameterDataSource(TiXmlNode *pGroup){
+  extractParameters(pGroup);
+}
+
+void XMLParameterDataSource::extractParameters(TiXmlNode *parameterNode){
+ TiXmlNode *pGroup = 0;
   while((pGroup = parameterNode->IterateChildren(pGroup))){
     // iterate each parameter
     TiXmlNode *cPar = 0; // current parameter
     while((cPar = pGroup->IterateChildren(cPar))){
-    //save it to the appropriate map
+      //save it to the appropriate map
       string cAttribute;
       if(cPar->ToElement()->Attribute("type"))
 	cAttribute = cPar->ToElement()->Attribute("type");
@@ -59,6 +55,7 @@ XMLParameterDataSource::XMLParameterDataSource(string location){
 	    boost::lexical_cast<double>(cPar->ToElement()->GetText()));
     }
   }
+  
 }
 
 

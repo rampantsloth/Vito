@@ -6,7 +6,7 @@ using std::string;
 namespace vito{
 
 std::string ParameterDataSourceRecorder::getSpecification(){
-  return record->getSpecification();
+  return true_source->getSpecification();
 }
 
 size_t ParameterDataSourceRecorder::get(string str, string parent, size_t original) {

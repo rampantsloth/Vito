@@ -20,7 +20,11 @@ public:
 
   std::vector<float> &writeDescriptor(std::vector<float> &datapoints, 
 				     std::string destination);
-  std::vector<float> readDescriptor(std::string location);
+  std::vector<float>  readDescriptor(std::string location);
+
+  std::vector<int>   &writeLabels(std::vector<int> &datapoints, 
+				     std::string destination);
+  std::vector<int>    readLabels(std::string location);
 
   // pure stuff
   virtual bool        exists(std::string fileloc) const = 0;

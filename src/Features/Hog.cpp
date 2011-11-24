@@ -13,12 +13,14 @@ HoG::HoG(Parameters p) : parameters(p){}
 
 std::string HoG::getSpecification() const {
   std::stringstream ss;
-  ss << "HoG_with_:"
-     << "blur=" << parameters.blur << "_"
-     <<  "blur_size=" << parameters.blur_size << "_"
-     <<  "xhistograms=" << parameters.xhistograms << "_"
-     <<  "yhistograms=" << parameters.yhistograms << "_"
-     <<  "orientations=" << parameters.orientations << "_";
+  ss << "HoG{:";
+#define writepar(p) ss << "_"  << #p << "=" << parameters.p;
+  writepar(blur);
+  writepar(blur_size);
+  writepar(xhistograms);
+  writepar(yhistograms);
+  writepar(orientations);
+  ss << "}";
   return ss.str();
 }
 

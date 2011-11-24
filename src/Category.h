@@ -4,7 +4,7 @@
 #include <vector>
 #include "DataInfo.h"
 #include "DataPoint.h"
-#include "DataSet.h"
+//#include "DataSet.h"
 
 namespace vito{
 
@@ -13,6 +13,8 @@ class DataSetEntry;
 
 class Category : public CategoryInfo{
 public:
+  typedef boost::shared_ptr<Category> ptr;
+  typedef boost::shared_ptr<const Category> const_ptr;
   typedef std::vector< const DataPoint * > dp_refs;
 friend class DataSet;
   FileSystem::ptr filesystem;
@@ -24,9 +26,10 @@ protected:
 	    FileSystem::ptr fs, const DataSetInfo *info );
 public:
   void setActivity(bool state);
-  bool getActivity();
+  bool getActivity() const ;
   void print();
-  dp_refs getPoints();
+  dp_refs getPoints() const;
+  size_t size() const;
 
 };
 

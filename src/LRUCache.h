@@ -5,13 +5,13 @@
 #include <list>
 
 namespace vito{
-template<class Entry> class LRUCache{
+template<class Object> class LRUCache{
 public:
-  typedef std::pair<std::string, Entry> EntryPair;
-  typedef std::list< EntryPair > CacheList;
-  typedef std::map< std::string, Entry* > CacheMap;
+  typedef boost::shared_ptr<Object> ObjectPtr;
+  typedef std::map< std::string, ObjectPtr > CacheMap;
+  typedef std::vector<std::string> hashvec;
 private:
-  CacheList cache_list;
+  hashvec hashes;
   CacheMap cache_map;
   size_t maxentries, kEntries;
 public:
@@ -20,22 +20,26 @@ public:
     kEntries(0){
   }
 
-  void insert(std::string hash, Entry entry){
-    cache_list.push_front(std::make_pair(hash, entry));
+  void insert(std::string hash, ObjectPtr entry){
+    for(hashvec::iterator i = hashes.begin(); 
+	kEntries > maxentries - 1 && i != hashes.end(); ++i)
+      if(cache_map[hash].unique()){
+	cache_map.erase(hash);
+	hashes.erase(i);
+	i = hashes.begin();
+      }
+    hashes.push_back(hash);
+    cache_map[hash] = entry;
     kEntries++;
-    cache_map[hash] = &cache_list.begin()->second;
-    if(kEntries > maxentries){
-      cache_map.erase(cache_list.back().first);
-      cache_list.pop_back();
-      kEntries--;
-    }
+
   }
-  Entry find(std::string hash){
-    
-    if(cache_map.count(hash))
-      return *cache_map[hash];
+
+  ObjectPtr find(std::string hash){
+    typename CacheMap::iterator descit = cache_map.find(hash);
+    if(descit == cache_map.end())
+      return ObjectPtr();
     else 
-      return Entry();
+      return descit->second;
   }
 };
 

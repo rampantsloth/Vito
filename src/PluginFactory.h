@@ -28,6 +28,7 @@ public:
   
   boost::shared_ptr<Type> getAlgorithm(std::string algorithm_name,
 				       ParameterDataSource::ptr dsource){
+    std::cout << "knows where to find this " << std::endl;
     if(dsource == NULL)
       throw exception::ParametersEmpty();
     const factory &cfactory = getFactory();
@@ -37,6 +38,10 @@ public:
     else
       throw exception::CouldNotInstantiateProblem();
     return boost::shared_ptr<Type>();
+  }
+
+  bool  exists(std::string str){
+    return getFactory().count(str);
   }
 };
 

@@ -137,7 +137,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CPPC) -c $(CPPFLAGS)  -o $@ $< $(IPATH)
 
 clean:
-	rm $(OBJECTS) $(APPLICATION) $(PLUGIN_OBJECTS) $(CLASSFIEROBJECTS) $(FEATUREOBJECTS)
+	rm $(OBJECTS) $(APPLICATION) $(PLUGIN_OBJECTS) $(CLASSFIEROBJECTS) $(FEATUREOBJECTS) $(TESTOBJECTS)
 
 clean_plugins:
 	rm $(PLUGIN_OBJECTS)
@@ -145,8 +145,10 @@ clean_plugins:
 touchtest:
 	touch $(TESTSOURCES)
 
-test: touchtest testall
+test: testall
 	./testall --log_level=test_suite;
+
+ftest: touchtest test
 
 $(TESTPROGRAM) : all $(TESTOBJECTS)
 	$(LINKER) $(LIBPATH) $(LIBS) -o $(TESTPROGRAM) $(TESTOBJECTS) \

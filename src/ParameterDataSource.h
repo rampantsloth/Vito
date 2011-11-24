@@ -36,6 +36,7 @@ public:
   virtual bool   get(std::string str, std::string parent, bool original ) ;
   virtual void   add(std::string str, std::string parent, bool value );
 
+
 };
 
 

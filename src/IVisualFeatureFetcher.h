@@ -11,11 +11,16 @@ namespace features{
 
 class IVisualFeatureFetcher{
 public:
-  typedef std::vector<const Descriptor *> DescriptorPtrSet;
+  typedef std::vector<const DataPoint*> dp_refs;
+  typedef std::vector<Descriptor::const_ptr> DescriptorPtrSet;
   typedef boost::shared_ptr<IVisualFeatureFetcher> ptr;
-  virtual const Descriptor * extract(const DataPoint *dp, 
-				     RgbImage *visrep = 0) = 0;
-   DescriptorPtrSet          extract(const vector<const DataPoint*> &dps);
+  virtual Descriptor::const_ptr extract(const DataPoint *dp, 
+					RgbImage *visrep = 0) = 0;
+  DescriptorPtrSet           extract(const dp_refs &dps);
+
+  Example              extractExample(const DataPoint *dp, RgbImage *visrep = 0);
+  std::vector<Example> extractExamples(const dp_refs &dps);
+  virtual std::string getSpecification() = 0;
 };
 
 } // features

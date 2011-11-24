@@ -12,7 +12,7 @@ using std::vector;
 BOOST_AUTO_TEST_CASE(FileSystemTest){ 
  FileSystem::ptr system( new BoostFileSystem());
  DataSet ds ("./datasets/caltech101", system);
- ds.print();
+ //ds.print();
  vector<float> vec;
  vec.reserve(1000);
  for(int i = 0; i < 1000; i++)

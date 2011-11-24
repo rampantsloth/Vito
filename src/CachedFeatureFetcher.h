@@ -11,13 +11,15 @@ namespace features{
 
 class CachedFeatureFetcher : public IVisualFeatureFetcher{
   IVisualFeatureExtractor::ptr extractor;
-  LRUCache<Descriptor::ptr> cache;
+  LRUCache<Descriptor> cache;
 public:
   CachedFeatureFetcher(IVisualFeatureExtractor::ptr ext):
-    extractor(ext), cache(100){
+    extractor(ext), cache(1000){
   }
-  virtual const Descriptor * extract(const DataPoint *dp, 
+  virtual Descriptor::const_ptr extract(const DataPoint *dp, 
 					RgbImage *visrep = 0);
+
+  virtual std::string getSpecification();
 };
 
 } // features

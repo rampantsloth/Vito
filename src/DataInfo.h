@@ -24,9 +24,9 @@ protected:
   size_t label;
   CategoryInfo( std::string root, std::string name, size_t label);
 public:
-  std::string getRoot() const;
-  std::string getName() const;
-  size_t      getLabel() const;
+  virtual std::string getRoot() const;
+  virtual std::string getName() const;
+  virtual size_t      getLabel() const;
 };
 
 class DataPoint{

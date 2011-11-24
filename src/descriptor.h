@@ -46,10 +46,10 @@ public:
 // Collection structure for both
 
 struct Example{
-  const Descriptor *descriptor;
+  Descriptor::const_ptr descriptor;
   int label;
-  Example(const Descriptor *d, size_t i) : descriptor(d), label(i){}
-  Example(const Descriptor &d, size_t i) : descriptor(&d), label(i){}
+  Example(Descriptor::const_ptr d, size_t i) : descriptor(d), label(i){
+  }
 };
 
 class DescriptorCollection : public std::vector<Descriptor> {
